@@ -96,6 +96,7 @@ html, body {
 #login-button:hover,#registration-button:hover {
     background-color: #8C8F91;
     color: white;
+    cursor: pointer;
 }
 .right-part p {
     font-family: Signika Regular, Arial, Helvetica, sans-serif;

@@ -90,6 +90,7 @@
     this.lName = lName;
     this.gender = gender;
     this.birthday = birthday;
+    this.login = false;
   }
 
   function func() {
@@ -106,11 +107,16 @@
       let user = new User(email, password, fName, lName, gender, birthday);
       frm.reset();
       localStorage.setItem(`user ${email}`, JSON.stringify(user))
-      return alert("User successfully created you can log in")
+       alert("User successfully created you can log in")
+      return setTimeout(changeLocation,1000);
     }
     else {
       return alert("All field must be field with correct type")
     }
+  }
+
+  function changeLocation(){
+    return location.href = "login.html";
   }
 
 

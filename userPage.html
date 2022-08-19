@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Page</title>
+    <link rel="stylesheet" href="userPageStyle.css">
+    <link rel="stylesheet" href="loginStyle.css">
+</head>
+<body>
+    <header>
+        <div class="image-div" >
+            <img src="Capture.PNG" alt="logo" width="200">
+        </div>
+        <div class="user">
+            <div class="user-info">
+                <span id="welcome-user" > </span>
+                <span id="welcome-user-mail"> </span>
+                <span>No unread messages</span>
+
+            </div>
+
+            <div class="user-buttons">
+                <button type="button" id="profile-button">Profile</button>
+                <button type="button" id="signOut-button">Sign Out</button>
+            </div>
+        </div>
+
+    </header>
+
+    <nav>
+        <div id="home" class="nav-link">
+            <a href="" onclick="return false">Home</a>
+        </div>
+        <div class="nav-link">
+            <a href="">Admission</a>
+        </div>
+
+        <div class="nav-link">
+            <a href="">Student</a>
+        </div>
+
+        <div id="student-information" class="nav-link">
+            <a href="" onclick="return false">User Information</a>
+        </div>
+
+        <div id="password-change" class="nav-link">
+            <a href="" onclick="return false">Change Password</a>
+        </div>
+
+    </nav>
+
+    <section id="main-container">
+        <div id="main-section">
+            <div class="home-cover"></div>
+            <div id="fields-container">
+                    <h2>Change Password</h2>
+                    <div class="login-form-row ">
+                        <label for="oldPassword" >Current Password</label>
+                        <input class="email" id="oldPassword" type="password" required>
+                    </div>
+
+                    <div class="login-form-row">
+                        <label for="newPassword" >New Password</label>
+                        <input class="password" id="newPassword" type="password" required>
+                    </div>
+
+                    <div class="login-form-row">
+                        <label for="newPasswordRepeat" >Confirm Password</label>
+                        <input class="password" id="newPasswordRepeat" type="password" required>
+                    </div>
+
+
+                    <div class="user-buttons">
+                        <button type="button" id="cancel-password-change">Cancel</button>
+                        <button type="button" id="save-password-change">Save</button>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        window.onload = function () {
+            let fieldContainer = document.getElementById('fields-container');
+            fieldContainer.style.display = "none";
+        }
+        let signOutButton = document.getElementById('signOut-button');
+        signOutButton.addEventListener('click',func);
+        let user ;
+        for (let i = 0; i < localStorage.length; i++) {
+            if (JSON.parse(localStorage.getItem(localStorage.key(i))).login === true) {
+                user = JSON.parse(localStorage.getItem(localStorage.key(i)));
+            }
+        }
+        document.getElementById('welcome-user').innerText = "Welcome, " + user.fName + " " + user.lName;
+        document.getElementById('welcome-user-mail').innerText = user.email;
+
+
+        function func() {
+            for (let i = 0; i < localStorage.length; i++) {
+                if (JSON.parse(localStorage.getItem(localStorage.key(i))).login === true) {
+                    localStorage.setItem(localStorage.key(i),JSON.stringify(userLogedOut(JSON.parse(localStorage.getItem(localStorage.key(i))))));
+                }
+            }
+            location.href = "login.html";
+        }
+
+        function userLogedOut(user){
+            user.login = false;
+            return user;
+        }
+
+        let profileButton = document.getElementById('profile-button');
+        profileButton.addEventListener('click',profile);
+        function profile() {
+           alert(user.fName)
+        }
+
+        let studentInfo = document.getElementById('student-information');
+        studentInfo.addEventListener('click',studentInformation)
+
+        function studentInformation() {
+            let fieldContainer = document.getElementById('fields-container');
+            fieldContainer.style.display = "block";        }
+
+
+        let home = document.getElementById('home')
+        home.addEventListener('click',homePage)
+
+        function homePage() {
+            let fieldContainer = document.getElementById('fields-container');
+            fieldContainer.style.display = "none";
+        }
+
+        let passwordChange = document.getElementById('password-change');
+        passwordChange.addEventListener("click", passwordChangePage)
+
+        function passwordChangePage() {
+            let div = document.createElement('div');
+            div.style.width = "70%";
+            div.style.height = "500px";
+            div.style.background = "red";
+            let mainContainer = document.getElementById('main-section');
+            mainContainer.removeChild(mainContainer.children[0]);
+            document.getElementById('main-container').append(div);
+        }
+
+
+
+        let cancelButton = document.getElementById('cancel-password-change');
+        cancelButton.addEventListener("click",cancelPasswordChange)
+        function cancelPasswordChange(){
+            location.href = 'userPage.html';
+        }
+
+
+        let currentPassword = document.getElementById('oldPassword');
+        let newPassword = document.getElementById('newPassword');
+        let newPasswordRepeat = document.getElementById('newPasswordRepeat');
+
+        let saveButton = document.getElementById('save-password-change');
+        saveButton.addEventListener('click',savePasswordChange)
+        function savePasswordChange() {
+            if(currentPassword.value !== user.password){
+                alert("Wrong current password specified")
+            }
+            else if(newPassword.value !== newPasswordRepeat.value || newPassword.value.length <= 0){
+                alert("Passwords are not the same or are not valid")
+            }
+            else {
+                 /*to be added*/
+                alert("Password successfully changed")
+                setTimeout(goHome,1000);
+            }
+        }
+        function goHome(){
+            location.href = "userPage.html";
+        }
+
+
+    </script>
+
+</body>
+</html>
