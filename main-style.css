@@ -9,6 +9,7 @@
 html, body {
     height: 100%;
 }
+
 header {
     position: relative;
     top: 0;
@@ -22,7 +23,7 @@ header {
     max-width: 100%;
 }
 
-.heading1  {
+.heading1 {
     padding-left: 18px;
     background-color: rgb(13, 60, 91);
     width: 100%;
@@ -33,7 +34,8 @@ header {
     font-size: 20px;
     overflow: hidden;
 }
-.heading2  {
+
+.heading2 {
     display: flex;
     align-items: center;
     padding-left: 18px;
@@ -42,21 +44,27 @@ header {
     height: 125px;
     overflow: hidden;
 }
+
 .heading1 a {
     color: rgb(245, 190, 17);
 }
+
 .heading1-nav1 a {
     margin: 25px;
 }
+
 a {
     text-decoration: none;
 }
+
 .heading1-nav2 a {
     margin-right: 30px;
 }
+
 .heading2 div {
 
 }
+
 button, input, optgroup, select, textarea {
     font-family: sans-serif;
     font-size: 100%;
@@ -81,4 +89,57 @@ button, input, optgroup, select, textarea {
     overflow-y: scroll;
 }
 
+#footer {
+    position: relative;
+    border-bottom: 1px solid #464647;
+    background: #353739;
+}
 
+i {
+    color: rgb(245, 190, 17);
+}
+
+
+.footer-basic {
+    padding: 40px 0;
+    background-color: rgb(13, 60, 91);
+    color: #4b4c4d;
+}
+
+.footer-basic .copyright {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 13px;
+    color: white;
+    margin-bottom: 0;
+}
+
+.social_footer_ul {
+    display: table;
+    margin: 10px auto 0 auto;
+    list-style-type: none;
+}
+
+.social_footer_ul li {
+    padding-left: 10px;
+    padding-top: 10px;
+    float: left;
+}
+
+.social_footer_ul li a {
+    color: #CCC;
+    border: 1px solid #CCC;
+    padding: 8px;
+    border-radius: 50%;
+}
+
+.social_footer_ul li i {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+}
+
+.footer-text {
+    text-align: center;
+    color: rgb(245, 190, 17)
+}
