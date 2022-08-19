@@ -78,7 +78,7 @@ button, input, optgroup, select, textarea {
     overflow: hidden;
 }
 
-.dashboard-content {
+.content {
     padding: 10px;
     display: flex;
     box-sizing: border-box;
@@ -88,24 +88,27 @@ button, input, optgroup, select, textarea {
     justify-content: space-evenly;
     overflow-y: scroll;
 }
-
+.content div img{
+    width: 100%;
+    height: 700px;
+}
+.content-footer {
+    max-height: 100%;
+    overflow: auto;
+}
 #footer {
     position: relative;
     border-bottom: 1px solid #464647;
     background: #353739;
 }
-
 i {
     color: rgb(245, 190, 17);
 }
-
-
 .footer-basic {
     padding: 40px 0;
     background-color: rgb(13, 60, 91);
     color: #4b4c4d;
 }
-
 .footer-basic .copyright {
     margin-top: 15px;
     text-align: center;
