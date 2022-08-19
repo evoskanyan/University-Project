@@ -18,11 +18,13 @@
 
        <div class="form">
          <h1>New User Registration</h1>
-         <div class="right-part-login">
-           <div class="login-form-row">
 
+         <div class="right-part-login">
+           <form id="registration-form" action="">
+
+           <div class="login-form-row">
              <label for="email">Email</label>
-             <input class="email" id="email" type="mail" required>
+             <input class="email" id="email" type="email" required>
            </div>
 
            <div class="login-form-row">
@@ -41,15 +43,18 @@
            </div>
 
            <div class="login-form-row">
-             <label for="gender" >Gender</label>
-             <input class="gender" id="gender" type="text" required>
+             <label for="gender">Gender</label>
+             <select id="gender" name="genders" style="width: 50%;height: 18px">
+               <option value="Male">Male</option>
+               <option value="Female">Female</option>
+             </select>
            </div>
 
            <div class="login-form-row">
              <label for="bDate" >Date of Birth</label>
              <input class="bDate" id="bDate" type="date" required>
            </div>
-
+           </form>
 
          </div>
        </div>
@@ -64,7 +69,7 @@
        </div>
 
        <div class="button">
-         <button id="registration-button">Create My Account</button>
+         <button id="registration-button" type="button">Create My Account</button>
          <a href="login.html">Back to Login</a>
        </div>
 
@@ -72,6 +77,48 @@
 
 
 </div>
+
+<script>
+
+  let createUserBtn = document.getElementById('registration-button');
+  createUserBtn.addEventListener('click', func);
+
+  function User(email,password,fName,lName,gender,birthday) {
+    this.email = email;
+    this.password = password;
+    this.fName = fName;
+    this.lName = lName;
+    this.gender = gender;
+    this.birthday = birthday;
+  }
+
+  function func() {
+    let frm = document.getElementById('registration-form');
+    let email = document.getElementById("email").value
+    let password = document.getElementById("password").value
+    let fName = document.getElementById("fName").value
+    let lName = document.getElementById("lName").value
+    let gender = document.getElementById("gender");
+    gender = gender.options[gender.selectedIndex].value;
+    let birthday = document.getElementById("bDate").value
+    if(document.getElementById("email").validity.valid && checkField(password) && checkField(fName) &&
+            checkField(lName) && checkField(birthday)) {
+      let user = new User(email, password, fName, lName, gender, birthday);
+      frm.reset();
+      localStorage.setItem(`user ${email}`, JSON.stringify(user))
+      return alert("User successfully created you can log in")
+    }
+    else {
+      return alert("All field must be field with correct type")
+    }
+  }
+
+
+  function checkField(field){
+   return field.length > 0;
+  }
+
+</script>
 
 </body>
 </html>
