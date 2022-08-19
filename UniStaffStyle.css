@@ -1,0 +1,13 @@
+.lecturers{
+    width: 400px;
+    border: black solid 1px;
+    margin-top: 10px;
+}
+
+
+.invert{
+    background-color: darkblue;
+    color: #ffc439;
+    font-size: 12px;
+    font-weight: bold;
+}
