@@ -1,0 +1,32 @@
+* {
+    font-family: Cambria, serif;
+    background-color: rgb(222, 221, 221);
+}
+
+h1 {
+    font-size: 100px;
+    text-align: center;
+}
+
+p {
+    text-align: center;
+    font-size: 30px;
+
+}
+
+.content {
+    width: 85%;
+}
+
+.page {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 100px;
+}
+.heading{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /*padding-top: 100px;*/
+}
