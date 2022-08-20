@@ -41,6 +41,8 @@ html, body {
     margin-bottom: 5%;
 }
 
+
+
 .right-part-login {
     display: flex;
     flex-direction: column;
@@ -100,7 +102,7 @@ html, body {
 }
 .right-part p {
     font-family: Signika Regular, Arial, Helvetica, sans-serif;
-    font-size: 8px;
+    font-size: 12px;
     text-indent: initial;
 }
 
