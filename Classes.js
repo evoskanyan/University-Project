@@ -1,17 +1,24 @@
 class Person {
-    constructor(email,password,fName,lName,gender,birthday) {
+    constructor(email,phone,fName,lName,gender,birthday) {
         this.email = email;
-        this.password = password;
+        this.phone = phone;
         this.fName = fName;
         this.lName = lName;
         this.gender = gender;
         this.birthday = birthday;
+        this.classes = [];
     }
 }
 class Student extends Person{
-    constructor(email,password,fName,lName,gender,birthday, faculty) {
-        super(email,password,fName,lName,gender,birthday);
+    constructor(email,phone,fName,lName,gender,birthday,faculty,password) {
+        super(email,phone,fName,lName,gender,birthday);
+        this.password = password;
         this.faculty = faculty;
-        this.classes = [];
+    }
+}
+class Lecturer extends  Person{
+    constructor(email,phone,fName,lName,gender,birthday,faculties){
+        super(email,phone,fName,lName,gender,birthday);
+        this.faculties = [];
     }
 }
