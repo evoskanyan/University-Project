@@ -52,8 +52,8 @@ function func() {
     let email = document.getElementById('mail');
     let password = document.getElementById('password');
     for (let i = 0; i < localStorage.length; i++) {
-        if (JSON.parse(localStorage.getItem(localStorage.key(i))).email === email.value) {
-            if (JSON.parse(localStorage.getItem(localStorage.key(i))).password === password.value) {
+        if (JSON.parse(localStorage.getItem(localStorage.key(i)))._email === email.value) {
+            if (JSON.parse(localStorage.getItem(localStorage.key(i)))._password === password.value) {
                 location.href = "userPage.html";
                 localStorage.setItem(localStorage.key(i),JSON.stringify(userLoged(JSON.parse(localStorage.getItem(localStorage.key(i))))));
                 alert("You are successfully log in")

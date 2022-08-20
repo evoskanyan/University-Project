@@ -15,7 +15,7 @@
             <div class="user-info">
                 <span id="welcome-user" > </span>
                 <span id="welcome-user-mail"> </span>
-                <span>No unread messages</span>
+                <span style="text-decoration: underline">No unread messages</span>
 
             </div>
 
@@ -53,7 +53,7 @@
         <div id="main-section">
 
             <div id="home-container">
-
+                <img src="universtyPicture.jpg" alt="University" style='height: 100%; width: 100%; object-fit: contain'>
             </div>
 
 
@@ -104,31 +104,68 @@
                 </div>
 
                 <div class="login-form-row">
+                    <label for="faculty" >Faculty</label>
+                    <input class="faculty" id="faculty" type="text" disabled>
+                </div>
+
+                <div class="login-form-row">
                     <label for="bDay" >Date of Birth</label>
                     <input class="bDay" id="bDay" type="text" disabled>
                 </div>
 
                 <div class="user-buttons">
+                    <button type="button" id="edit-profile">Edit Profile</button>
                     <button type="button" id="to-password-change">Change password</button>
+                </div>
+
+            </div>
+
+            <div id="profileEdit-container">
+                <div class="login-form-row ">
+                    <label for="newfName" >First Name</label>
+                    <input class="newfName" id="newfName" type="text"  >
+                </div>
+
+                <div class="login-form-row">
+                    <label for="newlName" >Last Name</label>
+                    <input class="newLname" id="newlName" type="text" >
+                </div>
+
+                <div class="login-form-row">
+                    <label for="newEmail" >Email</label>
+                    <input class="newEmail" id="newEmail" type="text" >
+                </div>
+
+
+                <div class="login-form-row">
+                    <label for="newbDay" >Date of Birth</label>
+                    <input class="newbDay" id="newbDay" type="date" >
+                </div>
+
+                <div class="user-buttons">
+                    <button type="button" id="save-change">Save Changes</button>
+                    <button type="button" id="cancel-change">Cancel</button>
                 </div>
 
             </div>
         </div>
     </section>
     <footer>
-
+        <span>Copyright ©2013-2022 American University of Armenia. All rights reserved.</span>
     </footer>
     <div id="after-footer">
-
     </div>
 
     <script>
         let fieldContainer = document.getElementById('fields-container');
         let userInfo = document.getElementById('user-information-container');
         let first = document.getElementById('home-container');
+        let profileEdit = document.getElementById('profileEdit-container');
+
         window.onload = function () {
             fieldContainer.style.display = "none";
             userInfo.style.display = "none";
+            profileEdit.style.display = "none";
             first.style.display = "block"
         }
 
@@ -140,8 +177,53 @@
                 user = JSON.parse(localStorage.getItem(localStorage.key(i)));
             }
         }
-        document.getElementById('welcome-user').innerText = "Welcome, " + user.fName + " " + user.lName;
-        document.getElementById('welcome-user-mail').innerText = user.email;
+
+        let toChangePassword = document.getElementById("to-password-change");
+        toChangePassword.addEventListener('click',toChangePasswordPage)
+        function toChangePasswordPage(){
+            userInfo.style.display = "none";
+            first.style.display = "none";
+            fieldContainer.style.display = "block";
+        }
+
+        let profileButton = document.getElementById('profile-button');
+        profileButton.addEventListener('click',profile);
+        function profile() {
+            fieldContainer.style.display = 'none';
+            first.style.display = "none"
+            let userInformation = document.getElementById('user-information-container');
+            userInformation.style.display = 'inline-block ';
+        }
+
+
+        let cancelButton = document.getElementById('cancel-password-change');
+        cancelButton.addEventListener("click",cancelPasswordChange)
+        function cancelPasswordChange(){
+            location.href = 'userPage.html';
+        }
+
+        let currentPassword = document.getElementById('oldPassword');
+        let newPassword = document.getElementById('newPassword');
+        let newPasswordRepeat = document.getElementById('newPasswordRepeat');
+
+        let saveButton = document.getElementById('save-password-change');
+        saveButton.addEventListener('click',savePasswordChange)
+        function savePasswordChange() {
+            if(currentPassword.value !== user._password){
+                alert("Wrong current password specified")
+            }
+            else if(newPassword.value !== newPasswordRepeat.value || newPassword.value.length <= 0){
+                alert("Passwords are not the same or are not valid")
+            }
+            else {
+                localStorage.setItem(`user ${user._email}`,JSON.stringify(changePassword(JSON.parse(localStorage.getItem(`user ${user._email}`)),newPassword.value)));
+                alert("Password successfully changed")
+                setTimeout(goHome,1000);
+            }
+        }
+
+        document.getElementById('welcome-user').innerText = "Welcome, " + user._fName + " " + user._lName;
+        document.getElementById('welcome-user-mail').innerText = user._email;
 
 
         function func() {
@@ -158,14 +240,6 @@
             return user;
         }
 
-        let profileButton = document.getElementById('profile-button');
-        profileButton.addEventListener('click',profile);
-        function profile() {
-            fieldContainer.style.display = 'none';
-            first.style.display = "none"
-            let userInformation = document.getElementById('user-information-container');
-            userInformation.style.display = 'inline-block ';
-        }
 
         let studentInfo = document.getElementById('student-information');
         studentInfo.addEventListener('click',studentInformation)
@@ -173,6 +247,7 @@
         function studentInformation() {
             fieldContainer.style.display = 'none';
             first.style.display = "none"
+            profileEdit.style.display = "none";
             let userInformation = document.getElementById('user-information-container');
             userInformation.style.display = 'inline-block ';
         }
@@ -185,6 +260,7 @@
             let fieldContainer = document.getElementById('fields-container');
             fieldContainer.style.display = "none";
             userInfo.style.display = "none";
+            profileEdit.style.display = "none";
             first.style.display = "block"
 
         }
@@ -194,40 +270,14 @@
 
         function passwordChangePage() {
             userInfo.style.display = "none";
+            profileEdit.style.display = "none";
             first.style.display = "none";
             fieldContainer.style.display = "block";
 
         }
 
-
-        let cancelButton = document.getElementById('cancel-password-change');
-        cancelButton.addEventListener("click",cancelPasswordChange)
-        function cancelPasswordChange(){
-            location.href = 'userPage.html';
-        }
-
-
-        let currentPassword = document.getElementById('oldPassword');
-        let newPassword = document.getElementById('newPassword');
-        let newPasswordRepeat = document.getElementById('newPasswordRepeat');
-
-        let saveButton = document.getElementById('save-password-change');
-        saveButton.addEventListener('click',savePasswordChange)
-        function savePasswordChange() {
-            if(currentPassword.value !== user.password){
-                alert("Wrong current password specified")
-            }
-            else if(newPassword.value !== newPasswordRepeat.value || newPassword.value.length <= 0){
-                alert("Passwords are not the same or are not valid")
-            }
-            else {
-                 localStorage.setItem(`user ${user.email}`,JSON.stringify(changePassword(JSON.parse(localStorage.getItem(`user ${user.email}`)),newPassword.value)));
-                alert("Password successfully changed")
-                setTimeout(goHome,1000);
-            }
-        }
         function changePassword(user,newPassword){
-            user.password = newPassword;
+            user._password = newPassword;
             return user;
         }
 
@@ -235,22 +285,61 @@
             location.href = "userPage.html";
         }
 
-        document.getElementById("fName").value = user.fName
-        document.getElementById("lName").value = user.lName
-        document.getElementById("email").value = user.email
-        document.getElementById("gender").value = user.gender
-        document.getElementById("bDay").value = user.birthday
+        document.getElementById("fName").value = user._fName
+        document.getElementById("lName").value = user._lName
+        document.getElementById("email").value = user._email
+        document.getElementById("gender").value = user._gender
+        document.getElementById("faculty").value = user._faculty
+        document.getElementById("bDay").value = user._birthday
 
 
-        let toChangePassword = document.getElementById("to-password-change");
-        toChangePassword.addEventListener('click',toChangePasswordPage)
-        function toChangePasswordPage(){
+        let editProfileButton = document.getElementById('edit-profile');
+        editProfileButton.addEventListener('click',editingProfile);
+
+        function  editingProfile(){
             userInfo.style.display = "none";
+            profileEdit.style.display = "block";
             first.style.display = "none";
-            fieldContainer.style.display = "block";
+            fieldContainer.style.display = "none";
         }
 
+        let saveEditProfileButton = document.getElementById('save-change');
+        saveEditProfileButton.addEventListener('click',savingEditedProfile);
 
+        function  savingEditedProfile(){
+            let newFName = document.getElementById('newfName');
+            let newLName = document.getElementById('newlName');
+            let newEmail = document.getElementById('newEmail');
+            let newBDay = document.getElementById('newbDay');
+            if(checkLength(newFName.value) && checkLength(newLName.value) && checkLength(newBDay.value)
+            && newEmail.validity.valid){
+                localStorage.removeItem(`user ${user._email}`);
+                localStorage.setItem(`user ${newEmail.value}`,JSON.stringify(changeProfile(newFName.value,newLName.value,newEmail.value,newBDay.value)));
+                alert("Profile successfully edited")
+                setTimeout(goHome, 1000);
+            }
+            else {
+                alert("You need to fill all fields correctly")
+            }
+        }
+
+        function  changeProfile(fName,lName,email,bDay){
+            user._fName = fName;
+            user._lName = lName;
+            user._email = email;
+            user._birthday = bDay;
+            return user;
+        }
+
+        function checkLength(str){
+            return str.length > 0;
+        }
+
+        let cancelChange = document.getElementById('cancel-change');
+        cancelChange.addEventListener('click',cancelingChange);
+        function cancelingChange() {
+            setTimeout(goHome,100);
+        }
 
 
     </script>

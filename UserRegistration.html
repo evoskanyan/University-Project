@@ -50,6 +50,16 @@
              </select>
            </div>
 
+             <div class="login-form-row">
+               <label for="faculty">Faculty</label>
+               <select id="faculty" name="faculties" style="width: 50%;height: 18px">
+                 <option value="F1">IKM</option>
+                 <option value="F2">FIZFAK</option>
+                 <option value="F3">SOC</option>
+                 <option value="F4">PATMUTYUN</option>
+               </select>
+             </div>
+
            <div class="login-form-row">
              <label for="bDate" >Date of Birth</label>
              <input class="bDate" id="bDate" type="date" required>
@@ -84,14 +94,89 @@
   createUserBtn.addEventListener('click', userCreation);
 
 
-  function User(email,password,fName,lName,gender,birthday) {
-    this.email = email;
-    this.password = password;
-    this.fName = fName;
-    this.lName = lName;
-    this.gender = gender;
-    this.birthday = birthday;
-    this.login = false;
+  class Person {
+    constructor(email, fName, lName, gender, birthday,lessons) {
+      this._lessons = lessons;
+      this._email = email;
+      this._fName = fName;
+      this._lName = lName;
+      this._gender = gender;
+      this._birthday = birthday;
+    }
+
+    get email() {
+      return this._email;
+    }
+
+    set email(value) {
+      this._email = value;
+    }
+
+
+    get fName() {
+      return this._fName;
+    }
+
+    set fName(value) {
+      this._fName = value;
+    }
+
+    get lName() {
+      return this._lName;
+    }
+
+    set lName(value) {
+      this._lName = value;
+    }
+
+    get gender() {
+      return this._gender;
+    }
+
+    set gender(value) {
+      this._gender = value;
+    }
+
+    get birthday() {
+      return this._birthday;
+    }
+
+    set birthday(value) {
+      this._birthday = value;
+    }
+
+    get lessons() {
+      return this._lessons;
+    }
+
+    set lessons(value) {
+      this._lessons = value;
+    }
+  }
+
+  class Student extends Person {
+    constructor(email, fName, lName, gender, birthday, faculty, password) {
+      super(email, fName, lName, gender, birthday,[]);
+      this._faculty = faculty;
+      this._password = password;
+      this.login = false;
+    }
+
+    get faculty() {
+      return this._faculty;
+    }
+
+    set faculty(value) {
+      this._faculty = value;
+    }
+
+    get password() {
+      return this._password;
+    }
+
+    set password(value) {
+      this._password = value;
+    }
   }
 
   function userCreation() {
@@ -102,9 +187,11 @@
     let lName = document.getElementById("lName").value
     let gender = document.getElementById("gender");
     gender = gender.options[gender.selectedIndex].value;
+    let faculty = document.getElementById("faculty");
+    faculty = faculty.options[faculty.selectedIndex].value;
     let birthday = document.getElementById("bDate").value
     if(document.getElementById("email").validity.valid && checkField(password) && checkField(fName) && checkField(lName) && checkField(birthday)) {
-      let user = new User(email, password, fName, lName, gender, birthday);
+      let user = new Student(email, fName, lName, gender, birthday, faculty, password);
       frm.reset();
       localStorage.setItem(`user ${email}`, JSON.stringify(user))
        alert("User successfully created you can log in")
