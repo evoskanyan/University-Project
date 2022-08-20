@@ -31,3 +31,11 @@ class Lessons {
         this.classroom = classroom;
     }
 }
+
+class Event{
+    constructor(name,description,date) {
+        this.name=name;
+        this.description=description;
+        this.date=date;
+    }
+}
