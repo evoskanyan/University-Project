@@ -6,8 +6,9 @@
 
 
 .invert{
-    background-color: darkblue;
-    color: #ffc439;
-    font-size: 12px;
+    background-color: #0D3C5B;
+    color: #F5BE11;
+    font-size: 15px;
+    height: 30px;
     font-weight: bold;
 }
