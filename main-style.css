@@ -11,14 +11,6 @@ html, body {
 }
 
 header {
-    position: relative;
-    top: 0;
-    margin-left: 253px;
-    display: flex;
-    align-items: center;
-    max-height: 100px;
-    box-shadow: 1px 1px #eceaea;
-    height: 100%;
     overflow: hidden;
     max-width: 100%;
 }
@@ -75,7 +67,7 @@ button, input, optgroup, select, textarea {
 .dashboard-wrapper {
     background-color: rgb(222, 221, 221);
     height: 100%;
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .content {
@@ -89,8 +81,8 @@ button, input, optgroup, select, textarea {
     overflow-y: scroll;
 }
 .content div img{
-    width: 100%;
-    height: 700px;
+    width: 1800px;
+    height: 600px;
 }
 .content-footer {
     max-height: 100%;
