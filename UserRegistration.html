@@ -81,7 +81,8 @@
 <script>
 
   let createUserBtn = document.getElementById('registration-button');
-  createUserBtn.addEventListener('click', func);
+  createUserBtn.addEventListener('click', userCreation);
+
 
   function User(email,password,fName,lName,gender,birthday) {
     this.email = email;
@@ -93,7 +94,7 @@
     this.login = false;
   }
 
-  function func() {
+  function userCreation() {
     let frm = document.getElementById('registration-form');
     let email = document.getElementById("email").value
     let password = document.getElementById("password").value
@@ -102,8 +103,7 @@
     let gender = document.getElementById("gender");
     gender = gender.options[gender.selectedIndex].value;
     let birthday = document.getElementById("bDate").value
-    if(document.getElementById("email").validity.valid && checkField(password) && checkField(fName) &&
-            checkField(lName) && checkField(birthday)) {
+    if(document.getElementById("email").validity.valid && checkField(password) && checkField(fName) && checkField(lName) && checkField(birthday)) {
       let user = new User(email, password, fName, lName, gender, birthday);
       frm.reset();
       localStorage.setItem(`user ${email}`, JSON.stringify(user))
@@ -118,7 +118,6 @@
   function changeLocation(){
     return location.href = "login.html";
   }
-
 
   function checkField(field){
    return field.length > 0;
