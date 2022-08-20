@@ -3,212 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
-  <link rel="stylesheet" href="loginStyle.css">
+    <link rel="stylesheet" href="loginStyle.css">
 
 </head>
 <body>
 
 <div class="main">
 
-   <div class="left-part">
-     <img src="Capture.PNG" alt="logo" width="245">
+    <div class="left-part">
+        <img src="images/Capture.PNG" alt="logo" width="245">
     </div>
 
-     <div class="right-part">
+    <div class="right-part">
 
-       <div class="form">
-         <h1>New User Registration</h1>
+        <div class="form">
+            <h1>New User Registration</h1>
 
-         <div class="right-part-login">
-           <form id="registration-form" action="">
+            <div class="right-part-login">
+                <form id="registration-form" action="">
 
-           <div class="login-form-row">
-             <label for="email">Email</label>
-             <input class="email" id="email" type="email" required>
-           </div>
+                    <div class="login-form-row">
+                        <label for="email">Email</label>
+                        <input class="email" id="email" type="email" required>
+                    </div>
 
-           <div class="login-form-row">
-             <label for="password">Password</label>
-             <input class="password" id="password" type="password" required>
-           </div>
+                    <div class="login-form-row">
+                        <label for="password">Password</label>
+                        <input class="password" id="password" type="password" required>
+                    </div>
 
-           <div class="login-form-row">
-             <label for="fName" >First Name</label>
-             <input class="fName" id="fName" type="text" required>
-           </div>
+                    <div class="login-form-row">
+                        <label for="fName">First Name</label>
+                        <input class="fName" id="fName" type="text" required>
+                    </div>
 
-           <div class="login-form-row">
-             <label for="lName">Last Name</label>
-             <input class="lName" id="lName" type="tel" required>
-           </div>
+                    <div class="login-form-row">
+                        <label for="lName">Last Name</label>
+                        <input class="lName" id="lName" type="tel" required>
+                    </div>
 
-           <div class="login-form-row">
-             <label for="gender">Gender</label>
-             <select id="gender" name="genders" style="width: 50%;height: 18px">
-               <option value="Male">Male</option>
-               <option value="Female">Female</option>
-             </select>
-           </div>
+                    <div class="login-form-row">
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="genders" style="width: 50%;height: 18px">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
 
-             <div class="login-form-row">
-               <label for="faculty">Faculty</label>
-               <select id="faculty" name="faculties" style="width: 50%;height: 18px">
-                 <option value="F1">IKM</option>
-                 <option value="F2">FIZFAK</option>
-                 <option value="F3">SOC</option>
-                 <option value="F4">PATMUTYUN</option>
-               </select>
-             </div>
+                    <div class="login-form-row">
+                        <label for="faculty">Faculty</label>
+                        <select id="faculty" name="faculties" style="width: 50%;height: 18px">
+                            <option value="F1">IKM</option>
+                            <option value="F2">FIZFAK</option>
+                            <option value="F3">SOC</option>
+                            <option value="F4">PATMUTYUN</option>
+                        </select>
+                    </div>
 
-           <div class="login-form-row">
-             <label for="bDate" >Date of Birth</label>
-             <input class="bDate" id="bDate" type="date" required>
-           </div>
-           </form>
+                    <div class="login-form-row">
+                        <label for="bDate">Date of Birth</label>
+                        <input class="bDate" id="bDate" type="date" required>
+                    </div>
+                </form>
 
-         </div>
-       </div>
+            </div>
+        </div>
 
-       <div class="form-paragraph">
-         <p>
-           Once you complete your registration page, you will not be able to make changes to your first name, last name, gender and date of birth.
-           <br>
-           <br>
-           If you realize an error has been made, please contact the ICTS - helpdesk at umshelpdesk@aua.am for assistance.
-         </p>
-       </div>
+        <div class="form-paragraph">
+            <p>
+                Once you complete your registration page, you will not be able to make changes to your first name, last
+                name, gender and date of birth.
+                <br>
+                <br>
+                If you realize an error has been made, please contact the ICTS - helpdesk at umshelpdesk@aua.am for
+                assistance.
+            </p>
+        </div>
 
-       <div class="button">
-         <button id="registration-button" type="button">Create My Account</button>
-         <a href="login.html">Back to Login</a>
-       </div>
+        <div class="button">
+            <button id="registration-button" type="button">Create My Account</button>
+            <a href="login.html">Back to Login</a>
+        </div>
 
-     </div>
+    </div>
 
 
 </div>
 
-<script>
+<script type="module">
+    import {Student} from "./static/Classes.js"
 
-  let createUserBtn = document.getElementById('registration-button');
-  createUserBtn.addEventListener('click', userCreation);
+    let createUserBtn = document.getElementById('registration-button');
+    createUserBtn.addEventListener('click', userCreation);
 
-
-  class Person {
-    constructor(email, fName, lName, gender, birthday,lessons) {
-      this._lessons = lessons;
-      this._email = email;
-      this._fName = fName;
-      this._lName = lName;
-      this._gender = gender;
-      this._birthday = birthday;
+    function userCreation() {
+        let frm = document.getElementById('registration-form');
+        let email = document.getElementById("email").value
+        let password = document.getElementById("password").value
+        let fName = document.getElementById("fName").value
+        let lName = document.getElementById("lName").value
+        let gender = document.getElementById("gender");
+        gender = gender.options[gender.selectedIndex].value;
+        let faculty = document.getElementById("faculty");
+        faculty = faculty.options[faculty.selectedIndex].value;
+        let birthday = document.getElementById("bDate").value
+        if (document.getElementById("email").validity.valid && checkField(password) && checkField(fName) && checkField(lName) && checkField(birthday)) {
+            let user = new Student(email, fName, lName, gender, birthday, faculty, password);
+            frm.reset();
+            localStorage.setItem(`user ${email}`, JSON.stringify(user))
+            alert("User successfully created you can log in")
+            return setTimeout(changeLocation, 1000);
+        } else {
+            return alert("All field must be field with correct type")
+        }
     }
 
-    get email() {
-      return this._email;
+    function changeLocation() {
+        return location.href = "login.html";
     }
 
-    set email(value) {
-      this._email = value;
+    function checkField(field) {
+        return field.length > 0;
     }
-
-
-    get fName() {
-      return this._fName;
-    }
-
-    set fName(value) {
-      this._fName = value;
-    }
-
-    get lName() {
-      return this._lName;
-    }
-
-    set lName(value) {
-      this._lName = value;
-    }
-
-    get gender() {
-      return this._gender;
-    }
-
-    set gender(value) {
-      this._gender = value;
-    }
-
-    get birthday() {
-      return this._birthday;
-    }
-
-    set birthday(value) {
-      this._birthday = value;
-    }
-
-    get lessons() {
-      return this._lessons;
-    }
-
-    set lessons(value) {
-      this._lessons = value;
-    }
-  }
-
-  class Student extends Person {
-    constructor(email, fName, lName, gender, birthday, faculty, password) {
-      super(email, fName, lName, gender, birthday,[]);
-      this._faculty = faculty;
-      this._password = password;
-      this.login = false;
-    }
-
-    get faculty() {
-      return this._faculty;
-    }
-
-    set faculty(value) {
-      this._faculty = value;
-    }
-
-    get password() {
-      return this._password;
-    }
-
-    set password(value) {
-      this._password = value;
-    }
-  }
-
-  function userCreation() {
-    let frm = document.getElementById('registration-form');
-    let email = document.getElementById("email").value
-    let password = document.getElementById("password").value
-    let fName = document.getElementById("fName").value
-    let lName = document.getElementById("lName").value
-    let gender = document.getElementById("gender");
-    gender = gender.options[gender.selectedIndex].value;
-    let faculty = document.getElementById("faculty");
-    faculty = faculty.options[faculty.selectedIndex].value;
-    let birthday = document.getElementById("bDate").value
-    if(document.getElementById("email").validity.valid && checkField(password) && checkField(fName) && checkField(lName) && checkField(birthday)) {
-      let user = new Student(email, fName, lName, gender, birthday, faculty, password);
-      frm.reset();
-      localStorage.setItem(`user ${email}`, JSON.stringify(user))
-       alert("User successfully created you can log in")
-      return setTimeout(changeLocation,1000);
-    }
-    else {
-      return alert("All field must be field with correct type")
-    }
-  }
-
-  function changeLocation(){
-    return location.href = "login.html";
-  }
-
-  function checkField(field){
-   return field.length > 0;
-  }
 
 </script>
 

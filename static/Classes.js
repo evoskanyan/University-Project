@@ -180,6 +180,6 @@ class Event {
     }
 }
 
-export {Person}
+export {Person,Student,Lecturer,Lessons,Event}
 
 

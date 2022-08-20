@@ -37,7 +37,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event1.jpg">
+                    <img src="images/event1.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -72,7 +72,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event3.jpg">
+                    <img src="images/event3.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -90,7 +90,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event3.jpg">
+                    <img src="images/event3.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -107,7 +107,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event1.jpg">
+                    <img src="images/event1.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -124,7 +124,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event3.jpg">
+                    <img src="images/event3.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -140,10 +140,9 @@
                             <td id="desc-id6" class="desc1"></td>
                         </tr>
 
-
                         </tbody>
                     </table>
-                    <img src="event1.jpg">
+                    <img src="images/event1.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -167,7 +166,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event4.jpg">
+                    <img src="images/event4.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -186,7 +185,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event1.jpg">
+                    <img src="images/event1.jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -215,39 +214,8 @@
 </table>
 
 
-<script>
-
-    class Event {
-        constructor(name, description, date) {
-            this._name = name;
-            this._description = description;
-            this._date = date;
-        }
-
-        get name() {
-            return this._name;
-        }
-
-        get description() {
-            return this._description;
-        }
-
-        get date() {
-            return this._date;
-        }
-
-        set name(value) {
-            this._name = value;
-        }
-
-        set description(value) {
-            this._description = value;
-        }
-
-        set date(value) {
-            this._date = value;
-        }
-    }
+<script type="module">
+    import {Event} from "./static/Classes.js";
 
     let events = [];
     events.push(new Event('First Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-08')))
@@ -262,7 +230,6 @@
     events.push(new Event('Tenth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-09-18')))
     localStorage.setItem('events', JSON.stringify(events))
     let arr = JSON.parse(localStorage.getItem('events'));
-    console.log(events[0].date.getFullYear() + '-' + (events[0].date.getMonth() + 1) + '-' + events[0].date.getDate());
     for (let i = 0; i < arr.length; i++) {
         document.getElementById('id' + i).innerText = arr[i]._name;
         document.getElementById('desc-id' + i).innerText = arr[i]._description;
