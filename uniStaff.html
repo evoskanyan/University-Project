@@ -282,8 +282,11 @@
             </table>
         </td>
     </tr>
-    <script>
-        class Person {
+    <script type="module">
+        import {Person} from "./static/Classes.js"
+        let p = new Person("sdds","dsd","dsds","ds","dsdsd");
+        console.log(p);
+        /*class Person {
             constructor(email, fName, lName, gender, birthday, lessons) {
                 this._lessons = lessons;
                 this._email = email;
@@ -405,7 +408,8 @@
             set classroom(value) {
                 this._classroom = value;
             }
-        };
+        };*/
+
         let lessons = [];
         lessons.push(new Lessons('Matematika', 5, '09:00', '304W'));
         lessons.push(new Lessons('Matematika', 5, '10:05', '303W'));
