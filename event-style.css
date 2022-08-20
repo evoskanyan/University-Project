@@ -1,0 +1,36 @@
+.lecturers {
+    width: 400px;
+    border: #6f6f6f solid 1px;
+
+    margin-top: 10px;
+    flex-grow: 1;
+    background-color: #CCCCCC;
+}
+
+
+.invert {
+    background-color: #0D3C5B;
+    color: #F5BE11;
+    font-size: 20px;
+    font-weight: bold;
+    height: 70px;
+}
+
+.event {
+    display: flex;
+
+}
+
+img {
+    width: 400px;
+    border: #6f6f6f solid 1px;
+    margin-top: 10px;
+    height: 500px;
+    flex-grow: 1;
+    padding: 10px;
+}
+.date{
+    background-color: white;
+    height: 30px;
+
+}

@@ -51,6 +51,12 @@
 
     <section id="main-container">
         <div id="main-section">
+
+            <div id="home-container">
+
+            </div>
+
+
             <div id="fields-container">
                     <h2>Change Password</h2>
                     <div class="login-form-row ">
@@ -103,7 +109,6 @@
                 </div>
 
                 <div class="user-buttons">
-                    <button type="button" id="edit-profile">Edit Profile</button>
                     <button type="button" id="to-password-change">Change password</button>
                 </div>
 
@@ -120,10 +125,13 @@
     <script>
         let fieldContainer = document.getElementById('fields-container');
         let userInfo = document.getElementById('user-information-container');
+        let first = document.getElementById('home-container');
         window.onload = function () {
             fieldContainer.style.display = "none";
             userInfo.style.display = "none";
+            first.style.display = "block"
         }
+
         let signOutButton = document.getElementById('signOut-button');
         signOutButton.addEventListener('click',func);
         let user ;
@@ -153,7 +161,10 @@
         let profileButton = document.getElementById('profile-button');
         profileButton.addEventListener('click',profile);
         function profile() {
-           alert(user.fName)
+            fieldContainer.style.display = 'none';
+            first.style.display = "none"
+            let userInformation = document.getElementById('user-information-container');
+            userInformation.style.display = 'inline-block ';
         }
 
         let studentInfo = document.getElementById('student-information');
@@ -161,6 +172,7 @@
 
         function studentInformation() {
             fieldContainer.style.display = 'none';
+            first.style.display = "none"
             let userInformation = document.getElementById('user-information-container');
             userInformation.style.display = 'inline-block ';
         }
@@ -173,6 +185,7 @@
             let fieldContainer = document.getElementById('fields-container');
             fieldContainer.style.display = "none";
             userInfo.style.display = "none";
+            first.style.display = "block"
 
         }
 
@@ -181,10 +194,10 @@
 
         function passwordChangePage() {
             userInfo.style.display = "none";
+            first.style.display = "none";
             fieldContainer.style.display = "block";
 
         }
-
 
 
         let cancelButton = document.getElementById('cancel-password-change');
@@ -208,11 +221,16 @@
                 alert("Passwords are not the same or are not valid")
             }
             else {
-                 /*to be added*/
+                 localStorage.setItem(`user ${user.email}`,JSON.stringify(changePassword(JSON.parse(localStorage.getItem(`user ${user.email}`)),newPassword.value)));
                 alert("Password successfully changed")
                 setTimeout(goHome,1000);
             }
         }
+        function changePassword(user,newPassword){
+            user.password = newPassword;
+            return user;
+        }
+
         function goHome(){
             location.href = "userPage.html";
         }
@@ -222,6 +240,16 @@
         document.getElementById("email").value = user.email
         document.getElementById("gender").value = user.gender
         document.getElementById("bDay").value = user.birthday
+
+
+        let toChangePassword = document.getElementById("to-password-change");
+        toChangePassword.addEventListener('click',toChangePasswordPage)
+        function toChangePasswordPage(){
+            userInfo.style.display = "none";
+            first.style.display = "none";
+            fieldContainer.style.display = "block";
+        }
+
 
 
 
