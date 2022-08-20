@@ -6,7 +6,7 @@ class Person {
         this.lName = lName;
         this.gender = gender;
         this.birthday = birthday;
-        this.classes = [];
+        this.lessons = [];
     }
 }
 class Student extends Person{
@@ -20,5 +20,14 @@ class Lecturer extends  Person{
     constructor(email,phone,fName,lName,gender,birthday,faculties){
         super(email,phone,fName,lName,gender,birthday);
         this.faculties = [];
+    }
+}
+class Lessons {
+    constructor(name, credit, time, lecturer, classroom) {
+        this.name = name;
+        this.credit = credit;
+        this.time = time;
+        this.lecturer = lecturer;
+        this.classroom = classroom;
     }
 }
