@@ -34,8 +34,32 @@ class Lessons {
 
 class Event{
     constructor(name,description,date) {
-        this.name=name;
-        this.description=description;
-        this.date=date;
+        this._name = name;
+        this._description = description;
+        this._date = date;
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    get description() {
+        return this._description;
+    }
+
+    get date() {
+        return this._date;
+    }
+
+    set name(value) {
+        this._name = value;
+    }
+
+    set description(value) {
+        this._description = value;
+    }
+
+    set date(value) {
+        this._date = value;
     }
 }
