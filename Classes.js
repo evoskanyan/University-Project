@@ -1,8 +1,7 @@
 class Person {
-    constructor(email, phone, fName, lName, gender, birthday) {
+    constructor(email, fName, lName, gender, birthday) {
         this._lessons = [];
         this._email = email;
-        this._phone = phone;
         this._fName = fName;
         this._lName = lName;
         this._gender = gender;
@@ -17,13 +16,6 @@ class Person {
         this._email = value;
     }
 
-    get phone() {
-        return this._phone;
-    }
-
-    set phone(value) {
-        this._phone = value;
-    }
 
     get fName() {
         return this._fName;
@@ -67,8 +59,8 @@ class Person {
 }
 
 class Student extends Person {
-    constructor(email, phone, fName, lName, gender, birthday, faculty, password) {
-        super(email, phone, fName, lName, gender, birthday);
+    constructor(email, fName, lName, gender, birthday, faculty, password) {
+        super(email, fName, lName, gender, birthday);
         this._faculty = faculty;
         this._password = password;
     }
@@ -92,9 +84,18 @@ class Student extends Person {
 
 class Lecturer extends Person {
     constructor(email, phone, fName, lName, gender, birthday, faculties) {
-        super(email, phone, fName, lName, gender, birthday);
+        super(email, fName, lName, gender, birthday);
         this.faculties = [];
         this._faculties = faculties;
+        this.phone = phone;
+    }
+
+    get phone() {
+        return this._phone;
+    }
+
+    set phone(value) {
+        this._phone = value;
     }
 
     get faculties() {
@@ -156,8 +157,8 @@ class Lessons {
     }
 }
 
-class Event{
-    constructor(name,description,date) {
+class Event {
+    constructor(name, description, date) {
         this._name = name;
         this._description = description;
         this._date = date;
@@ -187,3 +188,5 @@ class Event{
         this._date = value;
     }
 }
+
+
