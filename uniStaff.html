@@ -342,6 +342,11 @@
 
     const searchButton = document.getElementById('search-button')
     searchButton.addEventListener('click', search);
+     document.getElementById("search-input").addEventListener("keydown", function(event){
+        if(event.code === "Enter"){
+            document.getElementById("search-button").click();
+        }
+     })
 
     function search() {
         const staffNodeList= document.querySelectorAll("table");
