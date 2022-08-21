@@ -21,7 +21,7 @@
         </div>
 
         <div class="user-buttons">
-            <button type="button" id="admin-button"> Admin Settings</button>
+            <button type="button" id="admin-button" onclick="action()"> Admin Settings</button>
             <button type="button" id="profile-button">Profile</button>
             <button type="button" id="signOut-button">Sign Out</button>
         </div>
@@ -247,9 +247,9 @@
     }
 
 
-    // function action() {
-    //     location.href = "adminPage.html";
-    // }
+    function action() {
+        location.href = "adminPage.html";
+    }
 
     let toChangePassword = document.getElementById("to-password-change");
     toChangePassword.addEventListener('click', toChangePasswordPage)
