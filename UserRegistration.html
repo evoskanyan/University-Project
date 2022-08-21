@@ -95,6 +95,12 @@
 
     let createUserBtn = document.getElementById('registration-button');
     createUserBtn.addEventListener('click', userCreation);
+    let users = [];
+    localStorage.setItem('users', JSON.stringify(users));
+    console.log(users)
+    users = JSON.parse(localStorage.getItem("users") || "[]");
+    users.push(new Student('admin@gmail.com', 'admin', 'admin', null, null, null, 'admin', true, false));
+    localStorage.setItem("users", JSON.stringify(users));
 
     function userCreation() {
         let frm = document.getElementById('registration-form');
@@ -108,9 +114,10 @@
         faculty = faculty.options[faculty.selectedIndex].value;
         let birthday = document.getElementById("bDate").value
         if (document.getElementById("email").validity.valid && checkField(password) && checkField(fName) && checkField(lName) && checkField(birthday)) {
-            let user = new Student(email, fName, lName, gender, birthday, faculty, password);
             frm.reset();
-            localStorage.setItem(`user ${email}`, JSON.stringify(user))
+            users = JSON.parse(localStorage.getItem("users") || "[]");
+            users.push(new Student(email, fName, lName, gender, birthday, faculty, password, false, false));
+            localStorage.setItem("users", JSON.stringify(users));
             alert("User successfully created you can log in")
             return setTimeout(changeLocation, 1000);
         } else {

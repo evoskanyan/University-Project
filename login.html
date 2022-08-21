@@ -7,74 +7,74 @@
 </head>
 <body>
 
-    <div class="main">
-        <div class="left-part">
-            <img src="images/Capture.PNG" alt="logo" width="245">
-        </div>
-
-        <div class="right-part">
-            <div class="right-part-header">
-                <p>Welcome to login page – the  University <br>
-                     administrative system.</p>
-                <br>
-
-                <p>Please enter your Username and Password below. If you are a <br>
-                    new user, then please select “New User Registration” below. <br>
-                    We look forward to seeing you on University’s online community.</p>
-            </div>
-
-            <div class="right-part-login">
-                <div class="login-form-row">
-                    <label for="mail" >Email</label>
-                    <input class="email" id="mail" type="mail" required>
-                </div>
-
-                <div class="login-form-row">
-                    <label for="password" >Password</label>
-                    <input class="password" id="password" type="password" required>
-                </div>
-           </div>
-            <div class="button">
-                <button id="login-button">LOGIN</button>
-                <a href="UserRegistration.html">New User Registration</a>
-            </div>
-        </div>
-
+<div class="main">
+    <div class="left-part">
+        <img src="images/Capture.PNG" alt="logo" width="245">
     </div>
 
+    <div class="right-part">
+        <div class="right-part-header">
+            <p>Welcome to login page – the University <br>
+                administrative system.</p>
+            <br>
 
-<script>
+            <p>Please enter your Username and Password below. If you are a <br>
+                new user, then please select “New User Registration” below. <br>
+                We look forward to seeing you on University’s online community.</p>
+        </div>
 
+        <div class="right-part-login">
+            <div class="login-form-row">
+                <label for="mail">Email</label>
+                <input class="email" id="mail" type="mail" required>
+            </div>
+
+            <div class="login-form-row">
+                <label for="password">Password</label>
+                <input class="password" id="password" type="password" required>
+            </div>
+        </div>
+        <div class="button">
+            <button id="login-button">LOGIN</button>
+            <a href="UserRegistration.html">New User Registration</a>
+        </div>
+    </div>
+
+</div>
+
+
+<script type="module">
+    // import {Admin,Student} from "./static/Classes.js";
+    let storageUsers = JSON.parse(localStorage.getItem("users") || "[]");
+    console.log(storageUsers)
     let loginButton = document.getElementById('login-button');
     loginButton.addEventListener("click", func);
 
-function func() {
-    let email = document.getElementById('mail');
-    let password = document.getElementById('password');
-    for (let i = 0; i < localStorage.length; i++) {
-        if (JSON.parse(localStorage.getItem(localStorage.key(i)))._email === email.value) {
-            if (JSON.parse(localStorage.getItem(localStorage.key(i)))._password === password.value) {
-                location.href = "userPage.html";
-                localStorage.setItem(localStorage.key(i),JSON.stringify(userLoged(JSON.parse(localStorage.getItem(localStorage.key(i))))));
-                alert("You are successfully log in")
-                break;
-            } else {
-                alert("Wrong password or email entered")
+    function func() {
+        let email = document.getElementById('mail');
+        let password = document.getElementById('password');
+        console.log(storageUsers[0]._email);
+        for (let i = 0; i < storageUsers.length; i++) {
+
+            if (storageUsers[i]._email === email.value) {
+                if (storageUsers[i]._password === password.value) {
+                    location.href = "userPage.html";
+                    storageUsers[i].login = true;
+                    localStorage.setItem('users', JSON.stringify(storageUsers));
+                    alert("You are successfully log in")
+                    break;
+                } else {
+                    alert("Wrong password or email entered")
+                    break;
+                }
+            }
+            if (i === localStorage.length) {
+                alert("Wrong password or email entered");
                 break;
             }
         }
-        if (i === localStorage.length - 1) {
-            alert("Wrong password or email entered");
-            break;
-        }
-
     }
-}
 
- function userLoged(user){
-    user.login = true;
-    return user;
- }
 
 </script>
 </body>
