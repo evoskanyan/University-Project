@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="faculties-style.css">
+</head>
+<body>
+<div class="IKM">
+  <div class="heading2">
+    <img src="images/Capture.PNG" alt="Error" width="130px" height="130px">
+    <div>
+      <h1 style="color: #0D3C5B">University</h1><br>
+    </div>
+  </div>
+  <h3 style="padding-left: 40px; color: #0D3C5B">Students of IKM</h3>
+  <table id="ikm-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Birth Date</th>
+    </tr>
+    </thead>
+  </table>
+  <h3 style="padding-left: 40px; color: #0D3C5B">Students of Radio</h3>
+  <table id="radio-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Birth Date</th>
+    </tr>
+    </thead>
+  </table>
+  <h3 style="padding-left: 40px; color: #0D3C5B">Students of FizFak</h3>
+  <table id="fizFak-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Birth Date</th>
+    </tr>
+    </thead>
+  </table>
+  <h3 style="padding-left: 40px; color: #0D3C5B">Students of Patmutyun</h3>
+  <table id="patm-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Birth Date</th>
+    </tr>
+    </thead>
+  </table>
+  <h3 style="padding-left: 40px; color: #0D3C5B">Students of Soc</h3>
+  <table id="soc-table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Gender</th>
+      <th>Birth Date</th>
+    </tr>
+    </thead>
+  </table>
+</div>
+<script type="module">
+
+  import {Person,Lecturer} from "./static/Classes.js"
+
+  let n = 1;
+  let lecturers = [];
+  let ikm_lecturers = [];
+  let radio_lecturers = [];
+  let fizFak_lecturers = [];
+  let soc_lecturers = [];
+  let patm_lecturers = [];
+
+
+  let table_ikm = document.getElementById("ikm-table")
+  let table_radio = document.getElementById("radio-table");
+  let table_fizFak = document.getElementById("fizFak-table");
+  let table_soc = document.getElementById("soc-table");
+  let table_patm = document.getElementById("patm-table");
+
+
+  lecturers = JSON.parse(localStorage.getItem("staff"));
+  for(let i  = 0; i < lecturers.length; i++) {
+    for (let j = 0; j < lecturers[i]._faculties.length; j++) {
+      if (lecturers[i]._faculties[j] === 'IKM') {
+        ikm_lecturers.push(lecturers[i]);
+      }
+      if (lecturers[i]._faculties[j] === 'Radio') {
+        radio_lecturers.push(lecturers[i]);
+      }
+      if (lecturers[i]._faculties[j] === 'FizFak') {
+        fizFak_lecturers.push(lecturers[i]);
+      }
+      if (lecturers[i]._faculties[j] === 'Soc') {
+        soc_lecturers.push(lecturers[i]);
+      }
+      if (lecturers[i]._faculties[j] === 'Patmutyun') {
+        patm_lecturers.push(lecturers[i]);
+      }
+    }
+  }
+
+  for(let i = 0; i < ikm_lecturers.length; i++){
+    table_ikm.append(createRow(ikm_lecturers[i]));
+  }
+  for(let i = 0; i < radio_lecturers.length; i++){
+    table_radio.append(createRow(radio_lecturers[i]));
+  }
+  for(let i = 0; i < fizFak_lecturers.length; i++){
+    table_fizFak.append(createRow(fizFak_lecturers[i]));
+  }
+  for(let i = 0; i < soc_lecturers.length; i++){
+    table_soc.append(createRow(soc_lecturers[i]));
+  }
+  for(let i = 0; i < patm_lecturers.length; i++){
+    table_patm.append(createRow(patm_lecturers[i]));
+  }
+  function createCell(value) {
+    const newCell = document.createElement("td");
+    newCell.textContent = value;
+    return newCell;
+  }
+
+  function createRow(lecturer) {
+    const row = document.createElement("tr");
+    let cel1 = createCell(n);
+    let cel2 = createCell(lecturer._fName);
+    let cel3 = createCell(lecturer._lName);
+    let cel4 = createCell(lecturer._email);
+    let cel5 = createCell(lecturer._phone);
+    let cel6 = createCell(lecturer._gender);
+    let cel7 = createCell(lecturer._birthday);
+
+    row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+    n++;
+    return row;
+  }
+
+</script>
+</body>
+</html>

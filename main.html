@@ -9,38 +9,93 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
           integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
+
+    <script type = "text/javascript">
+        var images = [], x = -1;
+        images[0] = "images/Campuslife-Hero-1-1050x450.jpg";
+        images[1] = "images/reed_students_great_lawn.jpg";
+        images[2] = "images/UniversityLife.jpg";
+
+        function displayNextImage() {
+            x = (x === images.length - 1) ? 0 : x + 1;
+            document.getElementById("img").src = images[x];
+        }
+
+        function displayPreviousImage() {
+            x = (x <= 0) ? images.length - 1 : x - 1;
+            document.getElementById("img").src = images[x];
+        }
+
+        function startTimer() {
+            setInterval(displayNextImage, 6000);
+        }
+
+    </script>
 </head>
-<body>
+<body onload = "startTimer()">
 <div class="dashboard-wrapper">
     <div class="header">
         <div class="heading1">
-          <nav class="heading1-nav1">
-             <a href="about.html">About</a>
-             <a href="">Faculties</a>
-             <a href="uniStaff.html">Staff</a>
-             <a href="">Admission</a>
-          </nav>
-         <nav class="heading1-nav2">
-             <a href="login.html">Login / Sing Up</a>
-         </nav>
-          <!--        <input class="search-bar" type="search" placeholder="Search">-->
-       </div>
-     <div class="heading2">
-         <img src="images/Capture.PNG" alt="Error" width="130px" height="130px">
+            <nav class="heading1-nav1">
+                <a href="about.html">About</a>
+                <a href="faculties.html">Faculties</a>
+                <a href="uniStaff.html">Staff</a>
+                <a href="">Admission</a>
+            </nav>
+            <nav class="heading1-nav2">
+                <a href="login.html">Login / Sing Up</a>
+            </nav>
+        </div>
+        <div class="heading2">
+            <img src="images/Capture.PNG" alt="Error" width="130px" height="130px">
             <div>
-               <h1 style="color: #0D3C5B">University</h1><br>
-           </div>
-     </div>
+                <h1 style="color: #0D3C5B">University</h1><br>
+            </div>
+        </div>
     </div>
     <div class="content">
-        <div class="image">
-            <img src="images/UniversityLife.jpg" alt="UniversityLife">
+        <div class="content-first">
+            <div class="image">
+                <img id="img"  src="images/UniversityLife.jpg" alt="UniversityLife" width="1480px" height="550px">
+            </div>
+            <div class="next-previous">
+                <button type="button" onclick="displayPreviousImage()"></button>
+                <button type="button" onclick="displayNextImage()"></button>
+            </div>
         </div>
-        <button type="button" onclick="displayPreviousImage()">Previous</button>
-        <button type="button" onclick="displayNextImage()">Next</button>
-    </div>
-    <div class="footer-basic">
-        <footer>
+        <div class="content-second">
+            <div class="news">
+                <span>Latest news</span>
+            </div>
+            <div class="news-pictures">
+                <div class="new1">
+                    <div id="item1">
+                        <img width="200px" height="250px" src="images/event2%20(1).jpg">
+                        <div id="text-ov1" >
+                            <a href="">Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="new2">
+                    <div>
+                        <img width="200px" height="250px" src="images/event1.jpg">
+                        <div id="text-ov2" >
+                            <a href="">Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="new3">
+                    <div>
+                        <img width="200px" height="250px" src="images/event4.jpg">
+                        <div id="text-ov3" >
+                            <a href="">Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-basic">
+            <!--            <footer>-->
             <h3 class="footer-text">Find us online</h3>
             <ul class="social_footer_ul">
                 <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
@@ -49,8 +104,21 @@
                 <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>
             </ul>
             <p class="copyright">University Page Synergy Project © 2022</p>
-        </footer>
+            <!--            </footer>-->
+        </div>
     </div>
+    <!--    <div class="footer-basic">-->
+    <!--        <footer>-->
+    <!--            <h3 class="footer-text">Find us online</h3>-->
+    <!--            <ul class="social_footer_ul">-->
+    <!--                <li><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>-->
+    <!--                <li><a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a></li>-->
+    <!--                <li><a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a></li>-->
+    <!--                <li><a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a></li>-->
+    <!--            </ul>-->
+    <!--            <p class="copyright">University Page Synergy Project © 2022</p>-->
+    <!--        </footer>-->
+    <!--    </div>-->
 </div>
 
 
