@@ -14,7 +14,8 @@
 <table width="80%" border="0" align="center">
     <tr>
         <td align="center">
-            <input type="search" class="search"  placeholder=" Search..." name=s>
+            <input type="text" id="search-input">
+            <button id="search-button">search</button>
         </td>
     </tr>
     <tr>
@@ -55,7 +56,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event2%20(1).jpg">
+                    <img src="images/event2%20(1).jpg">
                 </div>
                 <div class="event">
                     <table class="lecturers" align="center">
@@ -204,7 +205,7 @@
 
                         </tbody>
                     </table>
-                    <img src="event2%20(1).jpg">
+                    <img src="images/event2%20(1).jpg">
                 </div>
             </form>
         </td>
@@ -218,23 +219,38 @@
     import {Event} from "./static/Classes.js";
 
     let events = [];
-    events.push(new Event('First Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-08')))
-    events.push(new Event('Second Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-09')))
-    events.push(new Event('Third Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-15')))
-    events.push(new Event('Forth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-21')))
-    events.push(new Event('Fifth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-25')))
-    events.push(new Event('Sixth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-27')))
-    events.push(new Event('Seventh Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-30')))
-    events.push(new Event('Eighth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-09-03')))
-    events.push(new Event('Ninth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-09-10')))
-    events.push(new Event('Tenth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-09-18')))
+    events.push(new Event('First Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-08')));
+    events.push(new Event('Second Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-09')));
+    events.push(new Event('Third Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-15')));
+    events.push(new Event('Forth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-21')));
+    events.push(new Event('Fifth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-25')));
+    events.push(new Event('Sixth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-27')));
+    events.push(new Event('Seventh Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-30')));
+    events.push(new Event('Eighth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-08-04')));
+    events.push(new Event('Ninth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-09-10')));
+    events.push(new Event('Tenth Event ', 'Put your sneakers on, grab a friend and join an explosion of rainbow-tastic colors – all while supporting a good cause! Costumes are encouraged and welcome. ', new Date('2022-09-18')));
     localStorage.setItem('events', JSON.stringify(events))
     let arr = JSON.parse(localStorage.getItem('events'));
     for (let i = 0; i < arr.length; i++) {
         document.getElementById('id' + i).innerText = arr[i]._name;
         document.getElementById('desc-id' + i).innerText = arr[i]._description;
         document.getElementById('date-id' + i).innerText = events[i].date.getFullYear() + '-' + (events[i].date.getMonth() + 1) + '-' + events[i].date.getDate();
+    }
+    const searchButton = document.getElementById('search-button')
+    searchButton.addEventListener('click', search);
 
+    function search() {
+
+        let cards = document.querySelectorAll('.event')
+        let search_query = document.getElementById("search-input").value;
+
+        for (let i = 0; i < cards.length; i++) {
+            if (!cards[i].getElementsByTagName("tr")[1].firstChild.textContent.includes(search_query)) {
+                cards[i].style.display = "none";
+            } else {
+                cards[i].style.display = "flex";
+            }
+        }
     }
 </script>
 </body>
