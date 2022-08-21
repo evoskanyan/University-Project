@@ -49,7 +49,7 @@ header {
 }
 
 
-#profile-button, #signOut-button {
+#profile-button, #signOut-button ,#admin-button{
     width:35%;
     height: 30px;
     background-color: #f3d64a;

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        table, th, td {
+            border-collapse: collapse;
+            border: 1px solid black;
+            margin-left: 40px;
+            width: 1100px;
+        }
+
+    </style>
+</head>
+<body>
+<h1 align="center">Add or delete staff members</h1>
+<table id="staff">
+    <thead>
+    <tr>
+        <th></th>
+        <th><input type="text" id="fname"></th>
+        <th><input type="text" id="lname"></th>
+        <th><input type="email" id="email"></th>
+        <th><input type="text" id="phone"></th>
+        <th><input type="text" id="gender"></th>
+        <th><input type="date" id="bday"></th>
+        <th>
+            <select id="faculty" name="faculties" style="width: 50%;height: 18px">Faculty
+                <option value="F1">IKM</option>
+                <option value="F2">FIZFAK</option>
+                <option value="F3">SOC</option>
+                <option value="F4">PATMUTYUN</option>
+            </select>
+        </th>
+        </select>
+        <th>
+            <button type="submit" id="submit">Submit</button>
+        </th>
+    </tr>
+    <tr>
+        <th></th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Gender</th>
+        <th>Birth Date</th>
+        <th> Faculty</th>
+    </tr>
+    </thead>
+</table>
+<a href="faculties.html">go to faculties</a>
+<script type="module">
+    import {Lecturer} from "./static/Classes.js";
+
+    var n = 1;
+
+    function createCell(value) {
+        const newCell = document.createElement("td");
+        newCell.textContent = value;
+        return newCell;
+    }
+
+    function createRow(lecturer) {
+        const row = document.createElement("tr");
+        let cel1 = createCell(n);
+        let cel2 = createCell(lecturer._fName);
+        let cel3 = createCell(lecturer._lName);
+        let cel4 = createCell(lecturer._email);
+        let cel5 = createCell(lecturer._phone);
+        let cel6 = createCell(lecturer._gender);
+        let cel7 = createCell(lecturer._birthday);
+        let cel8 = createCell(lecturer._faculties);
+
+
+        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7, cel8);
+        n++;
+        return row;
+    }
+
+    let lecturers = JSON.parse(localStorage.getItem("staff") || "[]");
+    console.log(lecturers)
+    let staff_table = document.getElementById("staff")
+    for (let i = 0; i < lecturers.length; i++) {
+        staff_table.append(createRow(lecturers[i]));
+    }
+
+    let submit = document.getElementById("submit");
+    submit.addEventListener("click", function (event) {
+
+        let firstName = document.getElementById("fname");
+
+        let lastName = document.getElementById("lname");
+        let email = document.getElementById("email");
+        let phone = document.getElementById("phone");
+        let gender = document.getElementById("gender");
+        let bday = document.getElementById("bday");
+        let faculty = [document.getElementById("faculty").options[document.getElementById("faculty").selectedIndex]];
+
+
+        let newUser = new Lecturer(email.value, phone.value, firstName.value, lastName.value, gender.value, bday.value, [faculty.text], []);
+        console.log(newUser)
+        lecturers.push(newUser);
+        staff_table.append(createRow(newUser));
+
+        localStorage.setItem('staff', JSON.stringify(lecturers));
+
+        firstName.value = "";
+        lastName.value = "";
+        email.value = "";
+        phone.value = "";
+        gender.value = "";
+        bday.value = "";
+    });
+
+</script>
+</body>
+</html>

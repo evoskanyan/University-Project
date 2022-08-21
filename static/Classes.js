@@ -59,10 +59,12 @@ class Person {
 }
 
 class Student extends Person {
-    constructor(email, fName, lName, gender, birthday, faculty, password) {
+    constructor(email, fName, lName, gender, birthday, faculty, password,isAdmin,login) {
         super(email, fName, lName, gender, birthday, []);
         this._faculty = faculty;
         this._password = password;
+        this.isAdmin=isAdmin;
+        this.login=login;
     }
 
     get faculty() {
@@ -179,6 +181,7 @@ class Event {
         this._date = value;
     }
 }
+
 
 export {Person,Student,Lecturer,Lessons,Event}
 
