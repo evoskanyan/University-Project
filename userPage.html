@@ -114,18 +114,24 @@
                         <th>Credit</th>
                         <th>Time</th>
                         <th>Classroom</th>
-
                     </tr>
                     </thead>
                 </table>
             </div>
 
             <div id="classes-container-schedule">
-
-
+                <table  id="schedule">
+                    <thead>
+                    <tr>
+                        <th>Week Day</th>
+                        <th>Class Name</th>
+                        <th>Credit</th>
+                        <th>Time</th>
+                        <th>Classroom</th>
+                    </tr>
+                    </thead>
+                </table>
             </div>
-
-
         </div>
 
         <div id="user-information-container">
@@ -208,7 +214,8 @@
     let userInfo = document.getElementById('user-information-container');
     let first = document.getElementById('home-container');
     let profileEdit = document.getElementById('profileEdit-container');
-    let classesContainer = document.getElementById('classes-container')
+    let classesContainer = document.getElementById('classes-container');
+
 
     window.onload = function () {
         fieldContainer.style.display = "none";
@@ -230,7 +237,6 @@
         if (user.login === true) {
             currentUser = user;
             if (user.isAdmin === false) {
-                console.log("is not admin,so button is hidden")
                 document.getElementById('admin-button').style.visibility = 'hidden';
             } else if (user.isAdmin === true) {
                 console.log("is admin ,so button is visible")
@@ -251,6 +257,7 @@
     function toChangePasswordPage() {
         userInfo.style.display = "none";
         first.style.display = "none";
+        classesContainer.style.display = 'none';
         fieldContainer.style.display = "block";
     }
 
@@ -315,6 +322,7 @@
         fieldContainer.style.display = 'none';
         first.style.display = "none"
         profileEdit.style.display = "none";
+        classesContainer.style.display = 'none';
         let userInformation = document.getElementById('user-information-container');
         userInformation.style.display = 'inline-block ';
     }
@@ -327,6 +335,7 @@
         let fieldContainer = document.getElementById('fields-container');
         fieldContainer.style.display = "none";
         userInfo.style.display = "none";
+        classesContainer.style.display = 'none';
         profileEdit.style.display = "none";
         first.style.display = "block"
 
@@ -338,6 +347,7 @@
     function passwordChangePage() {
         userInfo.style.display = "none";
         profileEdit.style.display = "none";
+        classesContainer.style.display = 'none';
         first.style.display = "none";
         fieldContainer.style.display = "block";
 
@@ -468,7 +478,22 @@
         lessons.style.display = "none";
         myLessons.style.display = "none";
         schedule.style.display = "block";
+        let table = document.getElementById("schedule");
+        for (let i = 1; i < table.rows.length;) {
+            table.deleteRow(i);
+        }
+        for (let j = 0; j < 5; j++) {
+            for (let k = 0; k < currentUser._lessons.length; ++k) {
+                if(k === 0) {
+                    table.append(createRowSchedule(currentUser._lessons[k], weekdays[j]));
+                }else{
+                    table.append(createRowSchedule(currentUser._lessons[k],""));
+                }
+            }
+        }
     }
+
+    let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
 
 
     let lessonsData = [];
@@ -531,6 +556,17 @@
             createCell(lesson._credit),
             createCell(lesson._time),
             createCell(lesson._classroom))
+        return newRow;
+    }
+
+    function createRowSchedule(lesson,weekday){
+        let newRow = document.createElement('tr');
+        newRow.append(createCell(weekday),
+        createCell(lesson._name),
+        createCell(lesson._credit),
+        createCell(lesson._time),
+        createCell(lesson._classroom)
+        )
         return newRow;
     }
 
