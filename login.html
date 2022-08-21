@@ -44,11 +44,23 @@
 
 
 <script type="module">
-    // import {Admin,Student} from "./static/Classes.js";
+    import {Student} from "./static/Classes.js";
     let storageUsers = JSON.parse(localStorage.getItem("users") || "[]");
     console.log(storageUsers)
     let loginButton = document.getElementById('login-button');
     loginButton.addEventListener("click", func);
+
+    let users = [];
+    if(localStorage.getItem('users') === null) {
+        localStorage.setItem('users', JSON.stringify(users));
+        // console.log(users)
+        users = JSON.parse(localStorage.getItem("users") || "[]");
+        users.push(new Student('admin@gmail.com', 'admin', 'admin', null, null, null, 'admin', true, false));
+        localStorage.setItem("users", JSON.stringify(users));
+    }
+    else {
+        users = users = JSON.parse(localStorage.getItem("users"));
+    }
 
     function func() {
         let email = document.getElementById('mail');
