@@ -92,85 +92,93 @@
 <script type="module">
 
     import {Person, Lecturer} from "./static/Classes.js"
-
-    let n = 1;
-    let lecturers = [];
-    let ikm_lecturers = [];
-    let radio_lecturers = [];
-    let fizFak_lecturers = [];
-    let soc_lecturers = [];
-    let patm_lecturers = [];
-
-
-    let table_ikm = document.getElementById("ikm-table")
-    let table_radio = document.getElementById("radio-table");
-    let table_fizFak = document.getElementById("fizFak-table");
-    let table_soc = document.getElementById("soc-table");
-    let table_patm = document.getElementById("patm-table");
+    window.addEventListener('DOMContentLoaded', (event) => {
+        let n = 1;
+        let lecturers = [];
+        let ikm_lecturers = [];
+        let radio_lecturers = [];
+        let fizFak_lecturers = [];
+        let soc_lecturers = [];
+        let patm_lecturers = [];
 
 
-    lecturers = JSON.parse(localStorage.getItem("staff"));
-    for (let i = 0; i < lecturers.length; i++) {
-        console.log(lecturers)
-    }
-    console.log(lecturers.length)
-    for (let i = 0; i < lecturers.length; i++) {
-        for (let j = 0; j < lecturers[i]._faculties.length; j++) {
-            if (lecturers[i]._faculties[j] === 'IKM') {
-                console.log(lecturers[i])
-                ikm_lecturers.push(lecturers[i]);
-            }
-            if (lecturers[i]._faculties[j] === 'Radio') {
-                radio_lecturers.push(lecturers[i]);
-            }
-            if (lecturers[i]._faculties[j] === 'FizFak') {
-                fizFak_lecturers.push(lecturers[i]);
-            }
-            if (lecturers[i]._faculties[j] === 'Soc') {
-                soc_lecturers.push(lecturers[i]);
-            }
-            if (lecturers[i]._faculties[j] === 'Patmutyun') {
-                patm_lecturers.push(lecturers[i]);
+        let table_ikm = document.getElementById("ikm-table")
+        let table_radio = document.getElementById("radio-table");
+        let table_fizFak = document.getElementById("fizFak-table");
+        let table_soc = document.getElementById("soc-table");
+        let table_patm = document.getElementById("patm-table");
+
+
+        lecturers = JSON.parse(localStorage.getItem("staff"));
+        for (let i = 0; i < lecturers.length; i++) {
+            console.log(lecturers)
+        }
+        console.log(lecturers.length)
+        for (let i = 0; i < lecturers.length; i++) {
+            for (let j = 0; j < lecturers[i]._faculties.length; j++) {
+                if (lecturers[i]._faculties[j] === 'IKM') {
+                    console.log(lecturers[i])
+                    ikm_lecturers.push(lecturers[i]);
+                }
+                if (lecturers[i]._faculties[j] === 'Radio') {
+                    radio_lecturers.push(lecturers[i]);
+                }
+                if (lecturers[i]._faculties[j] === 'FizFak') {
+                    fizFak_lecturers.push(lecturers[i]);
+                }
+                if (lecturers[i]._faculties[j] === 'Soc') {
+                    soc_lecturers.push(lecturers[i]);
+                }
+                if (lecturers[i]._faculties[j] === 'Patmutyun') {
+                    patm_lecturers.push(lecturers[i]);
+                }
             }
         }
-    }
 
-    for (let i = 0; i < ikm_lecturers.length; i++) {
-        table_ikm.append(createRow(ikm_lecturers[i]));
-    }
-    for (let i = 0; i < radio_lecturers.length; i++) {
-        table_radio.append(createRow(radio_lecturers[i]));
-    }
-    for (let i = 0; i < fizFak_lecturers.length; i++) {
-        table_fizFak.append(createRow(fizFak_lecturers[i]));
-    }
-    for (let i = 0; i < soc_lecturers.length; i++) {
-        table_soc.append(createRow(soc_lecturers[i]));
-    }
-    for (let i = 0; i < patm_lecturers.length; i++) {
-        table_patm.append(createRow(patm_lecturers[i]));
-    }
+        for (let i = 0; i < ikm_lecturers.length; i++) {
+            table_ikm.append(createRow(ikm_lecturers[i]));
+        }
+        for (let i = 0; i < radio_lecturers.length; i++) {
+            table_radio.append(createRow(radio_lecturers[i]));
+        }
+        for (let i = 0; i < fizFak_lecturers.length; i++) {
+            table_fizFak.append(createRow(fizFak_lecturers[i]));
+        }
+        for (let i = 0; i < soc_lecturers.length; i++) {
+            table_soc.append(createRow(soc_lecturers[i]));
+        }
+        for (let i = 0; i < patm_lecturers.length; i++) {
+            table_patm.append(createRow(patm_lecturers[i]));
+        }
 
-    function createCell(value) {
-        const newCell = document.createElement("td");
-        newCell.textContent = value;
-        return newCell;
-    }
+        function createCell(value) {
+            const newCell = document.createElement("td");
+            newCell.textContent = value;
+            return newCell;
+        }
 
-    function createRow(lecturer) {
-        const row = document.createElement("tr");
-        let cel1 = createCell(n);
-        let cel2 = createCell(lecturer._fName);
-        let cel3 = createCell(lecturer._lName);
-        let cel4 = createCell(lecturer._email);
-        let cel5 = createCell(lecturer._phone);
-        let cel6 = createCell(lecturer._gender);
-        let cel7 = createCell(lecturer._birthday);
+        function createRow(lecturer) {
+            const row = document.createElement("tr");
+            let cel1 = createCell(n);
+            let cel2 = createCell(lecturer._fName);
+            let cel3 = createCell(lecturer._lName);
+            let cel4 = createCell(lecturer._email);
+            let cel5 = createCell(lecturer._phone);
+            let cel6 = createCell(lecturer._gender);
+            let cel7 = createCell(lecturer._birthday);
 
-        row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
-        n++;
-        return row;
-    }
+            row.append(cel1, cel2, cel3, cel4, cel5, cel6, cel7);
+            n++;
+            return row;
+        }
+    });
+    // window.addEventListener('DOMContentLoaded', (event) => {
+    //     for (let i = 1; i <= localStorage.length; i++) {
+    //         let user = JSON.parse(localStorage.getItem(i + ''));
+    //         table.append(createRow(user));
+    //     }
+    //     id = localStorage.length + 1;
+    // }
 
 </script>
 </body>

@@ -58,6 +58,30 @@ class Person {
     }
 }
 
+class Applicant extends Person {
+    constructor(email, fName, lName, gender, birthday, lessons, image, documents) {
+        super(email, fName, lName, gender, birthday, []);
+        this._image = image;
+        this._documets = documents;
+        this._documents = documents;
+    }
+
+    get image() {
+        return this._image;
+    }
+
+    set image(value) {
+        this._image = value;
+    }
+
+    get documents() {
+        return this._documents;
+    }
+
+    set documents(value) {
+        this._documents = value;
+    }
+}
 class Student extends Person {
     constructor(email, fName, lName, gender, birthday, faculty, password,isAdmin,login) {
         super(email, fName, lName, gender, birthday, []);

@@ -32,9 +32,9 @@
         <th>
             <select id="faculty" name="faculties" style="width: 50%;height: 18px">Faculty
                 <option value="F1">IKM</option>
-                <option value="F2">FIZFAK</option>
-                <option value="F3">SOC</option>
-                <option value="F4">PATMUTYUN</option>
+                <option value="F2">FizFak</option>
+                <option value="F3">Soc</option>
+                <option value="F4">Patmutyun</option>
             </select>
         </th>
         </select>
@@ -100,10 +100,10 @@
         let phone = document.getElementById("phone");
         let gender = document.getElementById("gender");
         let bday = document.getElementById("bday");
-        let faculty = [document.getElementById("faculty").options[document.getElementById("faculty").selectedIndex]];
+        let faculty = document.getElementById("faculty").options[document.getElementById("faculty").selectedIndex];
 
 
-        let newUser = new Lecturer(email.value, phone.value, firstName.value, lastName.value, gender.value, bday.value, [faculty.text], []);
+        let newUser = new Lecturer(email.value, phone.value, firstName.value, lastName.value, gender.value, bday.value, [faculty.text ], []);
         console.log(newUser)
         lecturers.push(newUser);
         staff_table.append(createRow(newUser));
