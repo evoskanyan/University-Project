@@ -222,26 +222,25 @@
     signOutButton.addEventListener('click', func);
 
     let users = JSON.parse(localStorage.getItem("users") || '[]');
-    console.log(users)
 
-    let currentUser;
+
+    var currentUser;
     for (let i = 0; i < users.length; i++) {
-       let user=users[i];
+        var user = users[i];
         if (user.login === true) {
-           currentUser=user;
-            // console.log(currentUser.isAdmin)
+            currentUser = user;
             if (user.isAdmin === false) {
                 console.log("is not admin,so button is hidden")
                 document.getElementById('admin-button').style.visibility = 'hidden';
-            }else if (user.isAdmin === true){
+            } else if (user.isAdmin === true) {
                 console.log("is admin ,so button is visible")
                 document.getElementById('admin-button').style.visibility = 'visible';
             }
-       break;
+            break;
         }
     }
-    console.log(currentUser)
-    // localStorage.setItem('users',JSON.stringify(users));
+
+
     function action() {
         location.href = "adminPage.html";
     }
@@ -287,7 +286,7 @@
         } else if (newPassword.value !== newPasswordRepeat.value || newPassword.value.length <= 0) {
             alert("Passwords are not the same or are not valid")
         } else {
-            currentUser=changePassword(currentUser,newPassword.value)
+            currentUser = changePassword(currentUser, newPassword.value)
             localStorage.setItem(`users`, JSON.stringify(currentUser));
             alert("Password successfully changed")
             setTimeout(goHome, 1000);
@@ -437,15 +436,8 @@
         lessons.style.display = 'none';
         schedule.style.display = "none";
         myLessons.style.display = "block";
-        // callbackForMyLessons();
+        callbackForMyLessons();
     }
-
-    // let currentLoggedUser;
-    // for (let j = 0; j < localStorage.length; j++) {
-    //     if(JSON.parse(localStorage.getItem(localStorage.key(j))).login === true){
-    //         currentLoggedUser = JSON.parse(localStorage.getItem(localStorage.key(j)));
-    //     }
-    // }
 
     myLessonButton.addEventListener('click', callbackForMyLessons);
 
@@ -453,19 +445,13 @@
         lessons.style.display = "none";
         schedule.style.display = "none";
         myLessons.style.display = "block";
-        // let table = document.getElementById('myLessons');
-        // let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
-        // if(obj !== null) {
-        //     for (let i = 1; i < table.rows.length;) {
-        //         table.deleteRow(i);
-        //     }
-        //     for (let j = 0; j < obj.length; ++j) {
-        //         document.getElementById("myLessons").append(createRowMyLessons(obj[j][0], obj[j][1]));
-        //     }
-        // }
-        // else {
-        //     localStorage.setItem(`lessons ${currentLoggedUser._email}`,'[]')
-        // }
+        let table = document.getElementById('myLessons');
+        for (let i = 1; i < table.rows.length;) {
+            table.deleteRow(i);
+        }
+        for (let currentUserLesson of currentUser._lessons) {
+            table.append(createRowMyLessons(currentUserLesson));
+        }
     }
 
     lessonButton.addEventListener('click', callbackForLessons);
@@ -549,33 +535,18 @@
     }
 
 
-    let myLessonsArr = [];
-    // for (let j = 0; j < addTo.length; j++) {
-    //     addTo[j].addEventListener('click', () => {
-    //         let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
-    //         let newClass = lessonsData[j];
-    //         // for (let k = 0; k < obj.length; k++) {
-    //         //     if(obj[k][0]._name === newClass._name && obj[k][0]._time === newClass._time){
-    //         //         return alert("You have already chosen this class")
-    //         //     }
-    //         // }
-    //         // myLessonsArr = [lessonsData[j],new Date().toLocaleDateString()];
-    //         let arr = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
-    //         arr.push(myLessonsArr);
-    //         localStorage.setItem(`lessons ${currentLoggedUser._email}`,JSON.stringify(arr));
-    //     })
-    // }
     for (let j = 0; j < addTo.length; j++) {
         addTo[j].addEventListener('click', () => {
-            console.log( lessonsData[j]);
-            currentUser._lessons.push(lessonsData[j])
 
+            for (let k = 0; k < currentUser._lessons.length; k++) {
+                if (currentUser._lessons[k]._name === lessonsData[j]._name || currentUser._lessons[k]._time === lessonsData[j]._time) {
+                    return alert("You can't choose this class")
+                }
+            }
+            currentUser._lessons.push(lessonsData[j]);
+            localStorage.setItem('users', JSON.stringify(users));
         })
     }
-    console.log(currentUser)
-localStorage.setItem('users',JSON.stringify(users));
-
-
 
 </script>
 
