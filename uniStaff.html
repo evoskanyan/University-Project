@@ -320,6 +320,7 @@
         staff.push(new Lecturer('vkhachatryan@aua.am', '060 61 2546', 'Vardan ', 'Khachatryan', 'male', '04-04-1980', ['IKM', 'Radio'], [lessons[16], lessons[17]]));
         staff.push(new Lecturer('rsuvaryan@aua.am', '098 00 2586','Rafik ', 'Suvaryan', 'male', '01-01-2000', ['IKM', 'FizFak'], [lessons[18], lessons[19]]));
         localStorage.setItem('staff', JSON.stringify(staff));
+
         let staff1 = JSON.parse(localStorage.getItem('staff'));
         for(let i  = 0; i < staff1.length; i++){
             document.getElementById('id' + i).innerText  = staff1[i]._fName + " " + staff1[i]._lName;

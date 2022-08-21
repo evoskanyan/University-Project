@@ -208,3 +208,83 @@ footer {
     color: white;
     cursor: pointer;
 }
+
+
+#classes-container-lessons{
+    height: 400px;
+
+}
+
+.lessons{
+    box-sizing: border-box;
+    border-collapse: collapse;
+    width: 50%;
+    margin-left: 10px;
+    margin-top: 20px;
+    height: 100%;
+    overflow: auto;
+    display: block;
+}
+
+.lessons th{
+    color: white;
+    background-color: #0D3C5B;
+}
+
+.lessons th{
+    text-align: start;
+    font-size: 15px;
+}
+
+
+
+.lessons th,td {
+    border-right: 1px solid black;
+    width: 100px;
+}
+
+.lessons th:first-child{
+    border-left: 1px solid black;
+}
+
+.lessons  tr{
+    border-bottom: 1px solid black;
+}
+
+.lessons tr td:first-child{
+    border-left: 1px solid black;
+}
+
+.lessons tr{
+    height:30px;
+}
+
+.lessons tr:nth-child(even){
+    background-color:  #CCC;
+}
+
+.lessons tr td{
+    padding-left: 5px;
+}
+
+.lessons tr td:last-child {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+.classes-container-buttons{
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.classes-container-buttons button{
+    height: 30px;
+    width: 100px;
+    background-color: #f3d64a;
+    border: none;
+    flex-grow: 1;
+    cursor: pointer;
+}
