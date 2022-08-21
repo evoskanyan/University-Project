@@ -215,6 +215,10 @@ footer {
 
 }
 
+#classes-container-schedule{
+    height: 425px;
+}
+
 .lessons{
     box-sizing: border-box;
     border-collapse: collapse;
@@ -267,7 +271,7 @@ footer {
     padding-left: 5px;
 }
 
-.lessons tr td:last-child {
+#lessons tr td:last-child {
     cursor: pointer;
     color: blue;
     text-decoration: underline;
@@ -287,4 +291,18 @@ footer {
     border: none;
     flex-grow: 1;
     cursor: pointer;
+}
+
+#schedule {
+    width: 45%;
+    margin-left: 250px;
+    margin-top: 20px;
+    height: 100%;
+    overflow: auto;
+    display: block;
+    background-color: #D3D5D4;
+}
+
+#schedule th{
+    text-align: start;
 }

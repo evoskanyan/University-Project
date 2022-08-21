@@ -46,14 +46,12 @@
 <script type="module">
     import {Student} from "./static/Classes.js";
     let storageUsers = JSON.parse(localStorage.getItem("users") || "[]");
-    console.log(storageUsers)
     let loginButton = document.getElementById('login-button');
     loginButton.addEventListener("click", func);
 
     let users = [];
     if(localStorage.getItem('users') === null) {
         localStorage.setItem('users', JSON.stringify(users));
-        // console.log(users)
         users = JSON.parse(localStorage.getItem("users") || "[]");
         users.push(new Student('admin@gmail.com', 'admin', 'admin', null, null, null, 'admin', true, false));
         localStorage.setItem("users", JSON.stringify(users));
@@ -65,7 +63,6 @@
     function func() {
         let email = document.getElementById('mail');
         let password = document.getElementById('password');
-        // console.log(storageUsers[0]._email);
         for (let i = 0; i < storageUsers.length; i++) {
 
             if (storageUsers[i]._email === email.value) {
