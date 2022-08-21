@@ -61,7 +61,7 @@ header {
     margin-left: 10px;
 }
 
-#profile-button:hover,#signOut-button:hover {
+#profile-button:hover,#signOut-button:hover ,#admin-button:hover{
     background-color: #8C8F91;
     color: white;
     cursor: pointer;

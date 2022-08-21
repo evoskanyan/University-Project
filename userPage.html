@@ -12,6 +12,7 @@
         <img src="images/Capture.PNG" alt="logo" width="200">
     </div>
     <div class="user">
+
         <div class="user-info">
             <span id="welcome-user"> </span>
             <span id="welcome-user-mail"> </span>
@@ -20,6 +21,7 @@
         </div>
 
         <div class="user-buttons">
+            <button type="button" id="admin-button"> Admin Settings</button>
             <button type="button" id="profile-button">Profile</button>
             <button type="button" id="signOut-button">Sign Out</button>
         </div>
@@ -109,12 +111,10 @@
                     <thead>
                     <tr>
                         <th>Class Name</th>
-                        <th>Registration Date</th>
                         <th>Credit</th>
                         <th>Time</th>
                         <th>Classroom</th>
-                        <th>Drop Date</th>
-                        <th></th>
+
                     </tr>
                     </thead>
                 </table>
@@ -220,11 +220,30 @@
 
     let signOutButton = document.getElementById('signOut-button');
     signOutButton.addEventListener('click', func);
-    let user;
-    for (let i = 0; i < localStorage.length; i++) {
-        if (JSON.parse(localStorage.getItem(localStorage.key(i))).login === true) {
-            user = JSON.parse(localStorage.getItem(localStorage.key(i)));
+
+    let users = JSON.parse(localStorage.getItem("users") || '[]');
+    console.log(users)
+
+    let currentUser;
+    for (let i = 0; i < users.length; i++) {
+       let user=users[i];
+        if (user.login === true) {
+           currentUser=user;
+            // console.log(currentUser.isAdmin)
+            if (user.isAdmin === false) {
+                console.log("is not admin,so button is hidden")
+                document.getElementById('admin-button').style.visibility = 'hidden';
+            }else if (user.isAdmin === true){
+                console.log("is admin ,so button is visible")
+                document.getElementById('admin-button').style.visibility = 'visible';
+            }
+       break;
         }
+    }
+    console.log(currentUser)
+    // localStorage.setItem('users',JSON.stringify(users));
+    function action() {
+        location.href = "adminPage.html";
     }
 
     let toChangePassword = document.getElementById("to-password-change");
@@ -233,7 +252,6 @@
     function toChangePasswordPage() {
         userInfo.style.display = "none";
         first.style.display = "none";
-        classesContainer.style.display = "none";
         fieldContainer.style.display = "block";
     }
 
@@ -264,35 +282,32 @@
     saveButton.addEventListener('click', savePasswordChange)
 
     function savePasswordChange() {
-        if (currentPassword.value !== user._password) {
+        if (currentPassword.value !== currentUser._password) {
             alert("Wrong current password specified")
         } else if (newPassword.value !== newPasswordRepeat.value || newPassword.value.length <= 0) {
             alert("Passwords are not the same or are not valid")
         } else {
-            localStorage.setItem(`user ${user._email}`, JSON.stringify(changePassword(JSON.parse(localStorage.getItem(`user ${user._email}`)), newPassword.value)));
+            currentUser=changePassword(currentUser,newPassword.value)
+            localStorage.setItem(`users`, JSON.stringify(currentUser));
             alert("Password successfully changed")
             setTimeout(goHome, 1000);
         }
     }
 
-    document.getElementById('welcome-user').innerText = "Welcome, " + user._fName + " " + user._lName;
-    document.getElementById('welcome-user-mail').innerText = user._email;
+
+    document.getElementById('welcome-user').innerText = "Welcome, " + currentUser._fName;
+    document.getElementById('welcome-user-mail').innerText = currentUser._email;
 
 
     function func() {
-        for (let i = 0; i < localStorage.length; i++) {
-            if (JSON.parse(localStorage.getItem(localStorage.key(i))).login === true) {
-                localStorage.setItem(localStorage.key(i), JSON.stringify(userLogedOut(JSON.parse(localStorage.getItem(localStorage.key(i))))));
+        for (let i = 0; i < users.length; i++) {
+            if (users[i].login === true) {
+                users[i].login = false;
+                localStorage.setItem('users', JSON.stringify(users));
             }
         }
         location.href = "login.html";
     }
-
-    function userLogedOut(user) {
-        user.login = false;
-        return user;
-    }
-
 
     let studentInfo = document.getElementById('student-information');
     studentInfo.addEventListener('click', studentInformation)
@@ -301,7 +316,6 @@
         fieldContainer.style.display = 'none';
         first.style.display = "none"
         profileEdit.style.display = "none";
-        classesContainer.style.display = "none";
         let userInformation = document.getElementById('user-information-container');
         userInformation.style.display = 'inline-block ';
     }
@@ -315,9 +329,7 @@
         fieldContainer.style.display = "none";
         userInfo.style.display = "none";
         profileEdit.style.display = "none";
-        classesContainer.style.display = "none";
-        first.style.display = "block";
-
+        first.style.display = "block"
 
     }
 
@@ -326,7 +338,6 @@
 
     function passwordChangePage() {
         userInfo.style.display = "none";
-        classesContainer.style.display = "none";
         profileEdit.style.display = "none";
         first.style.display = "none";
         fieldContainer.style.display = "block";
@@ -342,12 +353,12 @@
         location.href = "userPage.html";
     }
 
-    document.getElementById("fName").value = user._fName
-    document.getElementById("lName").value = user._lName
-    document.getElementById("email").value = user._email
-    document.getElementById("gender").value = user._gender
-    document.getElementById("faculty").value = user._faculty
-    document.getElementById("bDay").value = user._birthday
+    document.getElementById("fName").value = currentUser._fName
+    document.getElementById("lName").value = currentUser._lName
+    document.getElementById("email").value = currentUser._email
+    document.getElementById("gender").value = currentUser._gender
+    document.getElementById("faculty").value = currentUser._faculty
+    document.getElementById("bDay").value = currentUser._birthday
 
 
     let editProfileButton = document.getElementById('edit-profile');
@@ -371,8 +382,8 @@
         let newBDay = document.getElementById('newbDay');
         if (checkLength(newFName.value) && checkLength(newLName.value) && checkLength(newBDay.value)
             && newEmail.validity.valid) {
-            localStorage.removeItem(`user ${user._email}`);
-            localStorage.setItem(`user ${newEmail.value}`, JSON.stringify(changeProfile(newFName.value, newLName.value, newEmail.value, newBDay.value)));
+            localStorage.removeItem(`users`);
+            localStorage.setItem(`users`, JSON.stringify(changeProfile(newFName.value, newLName.value, newEmail.value, newBDay.value)));
             alert("Profile successfully edited")
             setTimeout(goHome, 1000);
         } else {
@@ -381,11 +392,11 @@
     }
 
     function changeProfile(fName, lName, email, bDay) {
-        user._fName = fName;
-        user._lName = lName;
-        user._email = email;
-        user._birthday = bDay;
-        return user;
+        currentUser._fName = fName;
+        currentUser._lName = lName;
+        currentUser._email = email;
+        currentUser._birthday = bDay;
+        return currentUser;
     }
 
     function checkLength(str) {
@@ -398,6 +409,7 @@
     function cancelingChange() {
         setTimeout(goHome, 100);
     }
+
 </script>
 
 <script type="module">
@@ -425,15 +437,15 @@
         lessons.style.display = 'none';
         schedule.style.display = "none";
         myLessons.style.display = "block";
-        callbackForMyLessons();
+        // callbackForMyLessons();
     }
 
-    let currentLoggedUser;
-    for (let j = 0; j < localStorage.length; j++) {
-        if(JSON.parse(localStorage.getItem(localStorage.key(j))).login === true){
-            currentLoggedUser = JSON.parse(localStorage.getItem(localStorage.key(j)));
-        }
-    }
+    // let currentLoggedUser;
+    // for (let j = 0; j < localStorage.length; j++) {
+    //     if(JSON.parse(localStorage.getItem(localStorage.key(j))).login === true){
+    //         currentLoggedUser = JSON.parse(localStorage.getItem(localStorage.key(j)));
+    //     }
+    // }
 
     myLessonButton.addEventListener('click', callbackForMyLessons);
 
@@ -441,19 +453,19 @@
         lessons.style.display = "none";
         schedule.style.display = "none";
         myLessons.style.display = "block";
-        let table = document.getElementById('myLessons');
-        let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
-        if(obj !== null) {
-            for (let i = 1; i < table.rows.length;) {
-                table.deleteRow(i);
-            }
-            for (let j = 0; j < obj.length; ++j) {
-                document.getElementById("myLessons").append(createRowMyLessons(obj[j][0], obj[j][1]));
-            }
-        }
-        else {
-            localStorage.setItem(`lessons ${currentLoggedUser._email}`,'[]')
-        }
+        // let table = document.getElementById('myLessons');
+        // let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
+        // if(obj !== null) {
+        //     for (let i = 1; i < table.rows.length;) {
+        //         table.deleteRow(i);
+        //     }
+        //     for (let j = 0; j < obj.length; ++j) {
+        //         document.getElementById("myLessons").append(createRowMyLessons(obj[j][0], obj[j][1]));
+        //     }
+        // }
+        // else {
+        //     localStorage.setItem(`lessons ${currentLoggedUser._email}`,'[]')
+        // }
     }
 
     lessonButton.addEventListener('click', callbackForLessons);
@@ -527,36 +539,41 @@
         document.getElementById("lessons").append(createRowLessons(lessonsDatum));
     }
 
-    function createRowMyLessons(lesson,date) {
+    function createRowMyLessons(lesson) {
         let newRow = document.createElement('tr');
         newRow.append(createCell(lesson._name),
-            createCell(date),
             createCell(lesson._credit),
             createCell(lesson._time),
-            createCell(lesson._classroom),
-            createCell(""),
-            createCell("Drop")
-        )
+            createCell(lesson._classroom))
         return newRow;
     }
 
 
     let myLessonsArr = [];
+    // for (let j = 0; j < addTo.length; j++) {
+    //     addTo[j].addEventListener('click', () => {
+    //         let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
+    //         let newClass = lessonsData[j];
+    //         // for (let k = 0; k < obj.length; k++) {
+    //         //     if(obj[k][0]._name === newClass._name && obj[k][0]._time === newClass._time){
+    //         //         return alert("You have already chosen this class")
+    //         //     }
+    //         // }
+    //         // myLessonsArr = [lessonsData[j],new Date().toLocaleDateString()];
+    //         let arr = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
+    //         arr.push(myLessonsArr);
+    //         localStorage.setItem(`lessons ${currentLoggedUser._email}`,JSON.stringify(arr));
+    //     })
+    // }
     for (let j = 0; j < addTo.length; j++) {
         addTo[j].addEventListener('click', () => {
-            let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
-            let newClass = lessonsData[j];
-            for (let k = 0; k < obj.length; k++) {
-                if(obj[k][0]._name === newClass._name && obj[k][0]._time === newClass._time){
-                    return alert("You have already chosen this class")
-                }
-            }
-            myLessonsArr = [lessonsData[j],new Date().toLocaleDateString()];
-            let arr = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
-            arr.push(myLessonsArr);
-            localStorage.setItem(`lessons ${currentLoggedUser._email}`,JSON.stringify(arr));
+            console.log( lessonsData[j]);
+            currentUser._lessons.push(lessonsData[j])
+
         })
     }
+    console.log(currentUser)
+localStorage.setItem('users',JSON.stringify(users));
 
 
 
