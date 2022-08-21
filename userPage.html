@@ -12,7 +12,6 @@
         <img src="images/Capture.PNG" alt="logo" width="200">
     </div>
     <div class="user">
-
         <div class="user-info">
             <span id="welcome-user"> </span>
             <span id="welcome-user-mail"> </span>
@@ -21,7 +20,6 @@
         </div>
 
         <div class="user-buttons">
-            <button type="button" id="admin-button" onclick="action()"> Admin Settings</button>
             <button type="button" id="profile-button">Profile</button>
             <button type="button" id="signOut-button">Sign Out</button>
         </div>
@@ -37,8 +35,8 @@
         <a href="">Admission</a>
     </div>
 
-    <div class="nav-link">
-        <a href="">Student</a>
+    <div class="nav-link" id="classes">
+        <a href="" onclick="return false">Classes</a>
     </div>
 
     <div id="student-information" class="nav-link">
@@ -82,6 +80,52 @@
                 <button type="button" id="cancel-password-change">Cancel</button>
                 <button type="button" id="save-password-change">Save</button>
             </div>
+        </div>
+
+        <div id="classes-container">
+
+            <div id="classes-container-buttons">
+                <div class="classes-container-buttons">
+                    <button onclick="return false" id="classes-button-myLesson">MyLessons</button>
+                    <button onclick="return false" id="classes-button-lessons">Lessons</button>
+                    <button onclick="return false" id="classes-button-schedule">Schedule</button>
+                </div>
+            </div>
+
+            <div id="classes-container-lessons">
+                <table class="lessons" id="lessons">
+                    <tr>
+                        <th>Name</th>
+                        <th>Credit</th>
+                        <th>Time</th>
+                        <th>Classroom</th>
+                        <th></th>
+                    </tr>
+                </table>
+            </div>
+
+            <div id="classes-container-myLessons">
+                <table class="lessons" id="myLessons">
+                    <thead>
+                    <tr>
+                        <th>Class Name</th>
+                        <th>Registration Date</th>
+                        <th>Credit</th>
+                        <th>Time</th>
+                        <th>Classroom</th>
+                        <th>Drop Date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div id="classes-container-schedule">
+
+
+            </div>
+
+
         </div>
 
         <div id="user-information-container">
@@ -159,45 +203,28 @@
 <div id="after-footer">
 </div>
 
-<script type="module">
-    import {Student} from "./static/Classes.js";
-
+<script>
     let fieldContainer = document.getElementById('fields-container');
     let userInfo = document.getElementById('user-information-container');
     let first = document.getElementById('home-container');
     let profileEdit = document.getElementById('profileEdit-container');
+    let classesContainer = document.getElementById('classes-container')
 
     window.onload = function () {
         fieldContainer.style.display = "none";
         userInfo.style.display = "none";
         profileEdit.style.display = "none";
-        first.style.display = "block"
+        classesContainer.style.display = "none";
+        first.style.display = "block";
     }
 
     let signOutButton = document.getElementById('signOut-button');
     signOutButton.addEventListener('click', func);
-    let users= JSON.parse(localStorage.getItem('users') || "[]");
-    // console.log(users)
-    let currentUser;
-    for (let i = 0; i < users.length; i++) {
-       let user=users[i];
-        if (user.login === true) {
-           currentUser=user;
-            // console.log(currentUser)
-            // console.log(currentUser.isAdmin)
-            if (user.isAdmin === false) {
-                console.log("is not admin,so button is hidden")
-                document.getElementById('admin-button').style.visibility = 'hidden';
-            }else if (user.isAdmin === true){
-                console.log("is admin ,so button is visible")
-                document.getElementById('admin-button').style.visibility = 'visible';
-            }
-       break;
+    let user;
+    for (let i = 0; i < localStorage.length; i++) {
+        if (JSON.parse(localStorage.getItem(localStorage.key(i))).login === true) {
+            user = JSON.parse(localStorage.getItem(localStorage.key(i)));
         }
-    }
-
-    function action() {
-
     }
 
     let toChangePassword = document.getElementById("to-password-change");
@@ -206,6 +233,7 @@
     function toChangePasswordPage() {
         userInfo.style.display = "none";
         first.style.display = "none";
+        classesContainer.style.display = "none";
         fieldContainer.style.display = "block";
     }
 
@@ -214,7 +242,8 @@
 
     function profile() {
         fieldContainer.style.display = 'none';
-        first.style.display = "none"
+        classesContainer.style.display = "none";
+        first.style.display = "none";
         let userInformation = document.getElementById('user-information-container');
         userInformation.style.display = 'inline-block ';
     }
@@ -246,20 +275,24 @@
         }
     }
 
-
-    document.getElementById('welcome-user').innerText = "Welcome, " + currentUser._fName ;
-    document.getElementById('welcome-user-mail').innerText = currentUser._email;
+    document.getElementById('welcome-user').innerText = "Welcome, " + user._fName + " " + user._lName;
+    document.getElementById('welcome-user-mail').innerText = user._email;
 
 
     function func() {
-        for (let i = 0; i < users.length; i++) {
-            if (users[i].login === true) {
-                users[i].login = false;
-                localStorage.setItem('users', JSON.stringify(users));
+        for (let i = 0; i < localStorage.length; i++) {
+            if (JSON.parse(localStorage.getItem(localStorage.key(i))).login === true) {
+                localStorage.setItem(localStorage.key(i), JSON.stringify(userLogedOut(JSON.parse(localStorage.getItem(localStorage.key(i))))));
             }
         }
         location.href = "login.html";
     }
+
+    function userLogedOut(user) {
+        user.login = false;
+        return user;
+    }
+
 
     let studentInfo = document.getElementById('student-information');
     studentInfo.addEventListener('click', studentInformation)
@@ -268,6 +301,7 @@
         fieldContainer.style.display = 'none';
         first.style.display = "none"
         profileEdit.style.display = "none";
+        classesContainer.style.display = "none";
         let userInformation = document.getElementById('user-information-container');
         userInformation.style.display = 'inline-block ';
     }
@@ -281,7 +315,9 @@
         fieldContainer.style.display = "none";
         userInfo.style.display = "none";
         profileEdit.style.display = "none";
-        first.style.display = "block"
+        classesContainer.style.display = "none";
+        first.style.display = "block";
+
 
     }
 
@@ -290,6 +326,7 @@
 
     function passwordChangePage() {
         userInfo.style.display = "none";
+        classesContainer.style.display = "none";
         profileEdit.style.display = "none";
         first.style.display = "none";
         fieldContainer.style.display = "block";
@@ -305,12 +342,12 @@
         location.href = "userPage.html";
     }
 
-    document.getElementById("fName").value = currentUser._fName
-    document.getElementById("lName").value = currentUser._lName
-    document.getElementById("email").value = currentUser._email
-    document.getElementById("gender").value = currentUser._gender
-    document.getElementById("faculty").value = currentUser._faculty
-    document.getElementById("bDay").value = currentUser._birthday
+    document.getElementById("fName").value = user._fName
+    document.getElementById("lName").value = user._lName
+    document.getElementById("email").value = user._email
+    document.getElementById("gender").value = user._gender
+    document.getElementById("faculty").value = user._faculty
+    document.getElementById("bDay").value = user._birthday
 
 
     let editProfileButton = document.getElementById('edit-profile');
@@ -318,6 +355,7 @@
 
     function editingProfile() {
         userInfo.style.display = "none";
+        classesContainer.style.display = "none";
         profileEdit.style.display = "block";
         first.style.display = "none";
         fieldContainer.style.display = "none";
@@ -360,6 +398,167 @@
     function cancelingChange() {
         setTimeout(goHome, 100);
     }
+</script>
+
+<script type="module">
+    import {Lessons} from "./static/Classes.js";
+
+    let buttons = document.getElementById("classes-container-buttons");
+    let lessons = document.getElementById("classes-container-lessons");
+    let myLessons = document.getElementById("classes-container-myLessons");
+    let schedule = document.getElementById("classes-container-schedule");
+    let lessonButton = document.getElementById("classes-button-lessons");
+    let myLessonButton = document.getElementById("classes-button-myLesson");
+    let scheduleButton = document.getElementById("classes-button-schedule");
+
+    let classes = document.getElementById("classes");
+    classes.addEventListener('click', callbackForClasses);
+
+    function callbackForClasses() {
+        fieldContainer.style.display = 'none';
+        first.style.display = "none"
+        profileEdit.style.display = "none";
+        userInfo.style.display = "none";
+        let classContainer = document.getElementById('classes-container');
+        classContainer.style.display = 'block ';
+        buttons.style.display = 'block';
+        lessons.style.display = 'none';
+        schedule.style.display = "none";
+        myLessons.style.display = "block";
+        callbackForMyLessons();
+    }
+
+    let currentLoggedUser;
+    for (let j = 0; j < localStorage.length; j++) {
+        if(JSON.parse(localStorage.getItem(localStorage.key(j))).login === true){
+            currentLoggedUser = JSON.parse(localStorage.getItem(localStorage.key(j)));
+        }
+    }
+
+    myLessonButton.addEventListener('click', callbackForMyLessons);
+
+    function callbackForMyLessons() {
+        lessons.style.display = "none";
+        schedule.style.display = "none";
+        myLessons.style.display = "block";
+        let table = document.getElementById('myLessons');
+        let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
+        if(obj !== null) {
+            for (let i = 1; i < table.rows.length;) {
+                table.deleteRow(i);
+            }
+            for (let j = 0; j < obj.length; ++j) {
+                document.getElementById("myLessons").append(createRowMyLessons(obj[j][0], obj[j][1]));
+            }
+        }
+        else {
+            localStorage.setItem(`lessons ${currentLoggedUser._email}`,'[]')
+        }
+    }
+
+    lessonButton.addEventListener('click', callbackForLessons);
+
+    function callbackForLessons() {
+        lessons.style.display = "block";
+        myLessons.style.display = "none";
+        schedule.style.display = "none";
+    }
+
+    scheduleButton.addEventListener('click', callbackForSchedule);
+
+    function callbackForSchedule() {
+        lessons.style.display = "none";
+        myLessons.style.display = "none";
+        schedule.style.display = "block";
+    }
+
+
+    let lessonsData = [];
+    lessonsData.push(new Lessons('Matematika', 5, '09:00', '304W'));
+    lessonsData.push(new Lessons('Matematika', 5, '10:05', '303W'));
+    lessonsData.push(new Lessons('Matematika', 5, '11:10', '304E'));
+    lessonsData.push(new Lessons('Matematika', 5, '12:15', '305W'));
+    lessonsData.push(new Lessons('Matematika', 5, '13:20', '305W'));
+    lessonsData.push(new Lessons('Fizika', 4, '09:00', '304E'));
+    lessonsData.push(new Lessons('Fizika', 4, '10:05', '102W'));
+    lessonsData.push(new Lessons('Fizika', 4, '11:10', '203W'));
+    lessonsData.push(new Lessons('Fizika', 4, '12:15', '205E'));
+    lessonsData.push(new Lessons('Fizika', 4, '13:20', '304W'));
+    lessonsData.push(new Lessons('Informatika', 5, '09:00', '305W'));
+    lessonsData.push(new Lessons('Informatika', 5, '10:05', '304W'));
+    lessonsData.push(new Lessons('Informatika', 5, '11:10', '304W'));
+    lessonsData.push(new Lessons('Informatika', 5, '12:15', '304W'));
+    lessonsData.push(new Lessons('Informatika', 5, '13:20', '102W'));
+    lessonsData.push(new Lessons('C++', 5, '09:00', '205E'));
+    lessonsData.push(new Lessons('C++', 5, '10:05', '104W'));
+    lessonsData.push(new Lessons('C++', 5, '11:10', '201E'));
+    lessonsData.push(new Lessons('C++', 5, '12:15', '204W'));
+    lessonsData.push(new Lessons('C++', 5, '13:20', '102E'));
+
+    let addTo = [];
+    for (let i = 0; i < lessonsData.length; i++) {
+        addTo[i] = createCell(document.createElement("button"));
+        addTo[i].innerHTML = "Add to my classes";
+        addTo[i].setAttribute('onclick', "return false");
+    }
+
+    let i = 0;
+
+    function createRowLessons(lesson) {
+        let newRow = document.createElement('tr');
+        newRow.append(createCell(lesson.name),
+            createCell(lesson.credit),
+            createCell(lesson.time),
+            createCell(lesson.classroom),
+            addTo[i]
+        )
+        ++i;
+        return newRow;
+    }
+
+
+    function createCell(value) {
+        let cell = document.createElement('td');
+        cell.innerText = value;
+        return cell;
+    }
+
+    for (let lessonsDatum of lessonsData) {
+        document.getElementById("lessons").append(createRowLessons(lessonsDatum));
+    }
+
+    function createRowMyLessons(lesson,date) {
+        let newRow = document.createElement('tr');
+        newRow.append(createCell(lesson._name),
+            createCell(date),
+            createCell(lesson._credit),
+            createCell(lesson._time),
+            createCell(lesson._classroom),
+            createCell(""),
+            createCell("Drop")
+        )
+        return newRow;
+    }
+
+
+    let myLessonsArr = [];
+    for (let j = 0; j < addTo.length; j++) {
+        addTo[j].addEventListener('click', () => {
+            let obj = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
+            let newClass = lessonsData[j];
+            for (let k = 0; k < obj.length; k++) {
+                if(obj[k][0]._name === newClass._name && obj[k][0]._time === newClass._time){
+                    return alert("You have already chosen this class")
+                }
+            }
+            myLessonsArr = [lessonsData[j],new Date().toLocaleDateString()];
+            let arr = JSON.parse(localStorage.getItem(`lessons ${currentLoggedUser._email}`));
+            arr.push(myLessonsArr);
+            localStorage.setItem(`lessons ${currentLoggedUser._email}`,JSON.stringify(arr));
+        })
+    }
+
+
 
 </script>
 
