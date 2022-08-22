@@ -45,31 +45,30 @@
 
 <script type="module">
     import {Student} from "./static/Classes.js";
-    let storageUsers = JSON.parse(localStorage.getItem("users") || "[]");
+
     let loginButton = document.getElementById('login-button');
     loginButton.addEventListener("click", func);
 
     let users = [];
-    if(localStorage.getItem('users') === null) {
+    if (localStorage.getItem('users') === null) {
         localStorage.setItem('users', JSON.stringify(users));
         users = JSON.parse(localStorage.getItem("users") || "[]");
         users.push(new Student('admin@gmail.com', 'admin', 'admin', null, null, null, 'admin', true, false));
         localStorage.setItem("users", JSON.stringify(users));
-    }
-    else {
+    } else {
         users = users = JSON.parse(localStorage.getItem("users"));
     }
 
     function func() {
         let email = document.getElementById('mail');
         let password = document.getElementById('password');
-        for (let i = 0; i < storageUsers.length; i++) {
+        for (let i = 0; i < users.length; i++) {
 
-            if (storageUsers[i]._email === email.value) {
-                if (storageUsers[i]._password === password.value) {
+            if (users[i]._email === email.value) {
+                if (users[i]._password === password.value) {
                     location.href = "userPage.html";
-                    storageUsers[i].login = true;
-                    localStorage.setItem('users', JSON.stringify(storageUsers));
+                    users[i].login = true;
+                    localStorage.setItem('users', JSON.stringify(users));
                     alert("You are successfully log in")
                     break;
                 } else {
