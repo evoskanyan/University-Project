@@ -34,7 +34,7 @@
         <a href="" onclick="return false">Home</a>
     </div>
     <div class="nav-link">
-        <a href="">Admission</a>
+        <a href="faculties.html">Faculties</a>
     </div>
 
     <div class="nav-link" id="classes">
@@ -120,7 +120,7 @@
             </div>
 
             <div id="classes-container-schedule">
-                <table  id="schedule">
+                <table id="schedule">
                     <thead>
                     <tr>
                         <th>Week Day</th>
@@ -484,16 +484,16 @@
         }
         for (let j = 0; j < 5; j++) {
             for (let k = 0; k < currentUser._lessons.length; ++k) {
-                if(k === 0) {
+                if (k === 0) {
                     table.append(createRowSchedule(currentUser._lessons[k], weekdays[j]));
-                }else{
-                    table.append(createRowSchedule(currentUser._lessons[k],""));
+                } else {
+                    table.append(createRowSchedule(currentUser._lessons[k], ""));
                 }
             }
         }
     }
 
-    let weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    let weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
 
 
     let lessonsData = [];
@@ -559,13 +559,13 @@
         return newRow;
     }
 
-    function createRowSchedule(lesson,weekday){
+    function createRowSchedule(lesson, weekday) {
         let newRow = document.createElement('tr');
         newRow.append(createCell(weekday),
-        createCell(lesson._name),
-        createCell(lesson._credit),
-        createCell(lesson._time),
-        createCell(lesson._classroom)
+            createCell(lesson._name),
+            createCell(lesson._credit),
+            createCell(lesson._time),
+            createCell(lesson._classroom)
         )
         return newRow;
     }
