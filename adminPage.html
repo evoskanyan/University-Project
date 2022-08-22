@@ -15,27 +15,6 @@
 
 <table id="staff">
     <thead>
-<!--    <tr>-->
-<!--        <th></th>-->
-<!--        <th><input type="text" id="fname"></th>-->
-<!--        <th><input type="text" id="lname"></th>-->
-<!--        <th><input type="email" id="email"></th>-->
-<!--        <th><input type="text" id="phone"></th>-->
-<!--        <th><input type="text" id="gender"></th>-->
-<!--        <th><input type="date" id="bday"></th>-->
-<!--        <th>-->
-<!--            <select id="faculty" name="faculties" style="width: 50%;height: 18px">Faculty-->
-<!--                <option value="F1">IKM</option>-->
-<!--                <option value="F2">FizFak</option>-->
-<!--                <option value="F3">Soc</option>-->
-<!--                <option value="F4">Patmutyun</option>-->
-<!--            </select>-->
-<!--        </th>-->
-<!--        </select>-->
-<!--        <th>-->
-<!--            <button type="submit" id="submit">Submit</button>-->
-<!--        </th>-->
-<!--    </tr>-->
     <tr>
         <th></th>
         <th>First Name</th>
@@ -70,6 +49,9 @@
         <th>
             <button type="submit" id="submit">Submit</button>
         </th>
+        <th>
+            <button type="submit" id="delete">Delete</button>
+        </th>
     </tr>
 </table>
 <script type="module">
@@ -101,7 +83,7 @@
     }
 
     let lecturers = JSON.parse(localStorage.getItem("staff") || "[]");
-    console.log(lecturers)
+    // console.log(lecturers)
     let staff_table = document.getElementById("staff")
     for (let i = 0; i < lecturers.length; i++) {
         staff_table.append(createRow(lecturers[i]));
@@ -121,7 +103,6 @@
 
 
         let newUser = new Lecturer(email.value, phone.value, firstName.value, lastName.value, gender.value, bday.value, [faculty.text ], []);
-        console.log(newUser)
         lecturers.push(newUser);
         staff_table.append(createRow(newUser));
 
@@ -134,6 +115,33 @@
         gender.value = "";
         bday.value = "";
     });
+    let deleteButton = document.getElementById("delete");
+    deleteButton.addEventListener("click", function (event) {
+
+        let table = document.getElementById('staff');
+        let email = document.getElementById("email");
+
+        let lecturers1 = JSON.parse(localStorage.getItem('staff'));
+        console.log(lecturers1);
+        for(let i = 0; i < lecturers1.length; i++) {
+            if(lecturers1[i]._email === email.value){
+                lecturers1.splice(i, 1);
+            }
+        }
+
+        email.value = "";
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            for(let i  = 0; i < table.rows.length; i++){
+                table.deleteRow(i);
+            }
+            for (let i = 0; i < lecturers1.length; i++) {
+                staff_table.append(createRow(lecturers1[i]));
+            }
+        });
+        localStorage.setItem('staff', JSON.stringify(lecturers1));
+    });
+
 
 </script>
 </body>
