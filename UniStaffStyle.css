@@ -1,13 +1,76 @@
-.lecturers{
-    width: 400px;
-    border: black solid 1px;
-    margin-top: 10px;
+* {
+    font-family: Cambria, serif;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+.heading2 {
+    display: flex;
+    align-items: center;
+    padding-left: 18px;
+    background-color: white;
+    width: 100%;
+    height: 125px;
+    overflow: hidden;
 }
 
-.invert{
+
+.lecturers {
+    width: 400px;
+    border: #6f6f6f solid 1px;
+    margin-top: 10px;
+    flex-grow: 1;
+    background-color: #CCCCCC;
+}
+
+
+.invert {
+    padding-left: 30%;
     background-color: #0D3C5B;
     color: #F5BE11;
-    font-size: 15px;
-    height: 30px;
+    font-size: 30px;
     font-weight: bold;
+    height: 70px;
+}
+
+.invert1 {
+    color: #0D3C5B;
+    background-color: #CCCCCC;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.event {
+    display: flex;
+}
+
+.date {
+    padding-left: 10%;
+    background-color: #F5BE11;
+    color: #0D3C5B;
+    height: 30px;
+    width: 30%;
+    font-weight: bold;
+    border-right: 2px solid #0D3C5B;
+    border-bottom: 2px solid #0D3C5B;
+}
+
+.desc {
+    font-size: 30px;
+    color: #0D3C5B;
+    font-weight: bold;
+}
+
+.desc1 {
+    font-size: 20px;
+    color: #0D3C5B;
+    padding-right: 50px;
+}
+::-webkit-input-placeholder {
+    color: #afafad;
+}
+.search{
+    height: 23px;
+    border-radius: 10px;
+    border-color: #d3d1d1;
+
 }

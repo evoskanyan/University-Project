@@ -12,7 +12,6 @@
     background-color: #CCCCCC;
 }
 
-
 .invert {
     padding-left: 30%;
     background-color: #0D3C5B;
@@ -33,7 +32,7 @@
     display: flex;
 }
 
-img {
+.img1 {
     width: 600px;
     border: #6f6f6f solid 1px;
     margin-top: 10px;
@@ -42,7 +41,10 @@ img {
     padding: 10px;
     background-color: #CCCCCC;
 }
-
+#logo {
+    width: 130px;
+    height: 130px;
+}
 .date {
     padding-left: 10%;
     background-color: #F5BE11;

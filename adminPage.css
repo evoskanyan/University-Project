@@ -55,3 +55,8 @@ table th, table td {
     background: rgba(245, 190, 17, 0.63);
     color: #0D3C5B;
 }
+#delete {
+    border: none;
+    background: rgba(245, 190, 17, 0.63);
+    color: #0D3C5B;
+}

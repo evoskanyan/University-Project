@@ -7,7 +7,9 @@
 </head>
 <body>
 <div class="heading2">
-    <img src="images/Capture.PNG" alt="Error" width="130px" height="130px">
+    <a href="main.html">
+        <img src="images/Capture.PNG" alt="Error" width="130px" height="130px">
+    </a>
     <div>
         <h1 style="color: #0D3C5B">University</h1><br>
     </div>
@@ -83,7 +85,6 @@
     }
 
     let lecturers = JSON.parse(localStorage.getItem("staff") || "[]");
-    // console.log(lecturers)
     let staff_table = document.getElementById("staff")
     for (let i = 0; i < lecturers.length; i++) {
         staff_table.append(createRow(lecturers[i]));
